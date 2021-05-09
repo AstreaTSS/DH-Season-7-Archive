@@ -1,0 +1,1790 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Despair&#39;s Horizon - sheriffs-office</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/a_965abddd25358436b082455db945621c-13B7C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Despair&#39;s Horizon</div>
+        <div class="preamble__entry">┏✦❘༻Wild West (KG)༺❘✦┓ / sheriffs-office</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">04-Apr-21 10:40 AM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="828277955054403604" id="message-828277955054403604">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/97015586-rustic-western-town-sheriff-s-off-BA893.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/97015586-rustic-western-town-sheriff-s-off-BA893.png" alt="Image attachment" title="Image: 97015586-rustic-western-town-sheriff-s-office-3d-rendering-part-of-a-western-town-series.png (2.58 MB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">04-Apr-21 11:47 AM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="828294807172153416" id="message-828294807172153416">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The sheriff&#39;s office. Right next to the <span class="mention">#town-jail</span>, it&#39;s a rather quaint place, with 2 stories for the local sheriff. On the bottom floor is the actual office itself, with a desk and a rack of guns. However, the guns aren&#39;t actual guns, and just seem to be toys. They seem rather real though.</em>
+<em>Upstairs is the sheriff&#39;s house, with a bed and bathroom to accompany. There is no air conditioning, and light switches are spread out.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/53e75a0efa3d8b377038575f8bc6fe24-8FC11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Royalcat08#6390" data-user-id="721911813632950335" style="">Royalcat08</span>
+
+
+        <span class="chatlog__timestamp">05-Apr-21 01:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="828685817256870009" id="message-828685817256870009">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ryu walks through here, A sheriff&#39;s place? Now this should hopefully have <em>something</em>. He walks inside and lightly grins at the sight of the guns, picking one up- only to realize that it&#39;s fake. 
+
+&quot;...Darn.&quot; He still pockets one though. He turns to the rest of the guns. &quot;Hmmmm..... What to do with these. It&#39;d be best if no one knew they were fake but I want to check out the rest of this place before I try to dispose of them....&quot; 
+
+Ryu walks around a bit, and upon spotting the bed in the upstairs room he goes to grab the guns and hides them under the bed- &quot;Only a temporary fix.... I&#39;ll be back.&quot; And he leaves.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/53e75a0efa3d8b377038575f8bc6fe24-8FC11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Royalcat08#6390" data-user-id="721911813632950335" style="">Royalcat08</span>
+
+
+        <span class="chatlog__timestamp">05-Apr-21 01:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="828688152373755934" id="message-828688152373755934">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ryu walks back into here. To his... disappointment no one else was around from what he could tell. But it makes things easier for him. He shrugs off his jacket and begins to pull out the other fake toy guns that he found. Yes this defeats the purpose of putting them under the bed to begin with but <em>he was being cautious</em>. 
+
+Anyway, he uses his jacket to make an almost... makeshift bag? At least something that can carry the fake guns with ease. And with that in his hand he&#39;s out!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-A50F2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="829872296814444625" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Apr-21 08:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="829872298177593364" id="message-829872298177593364">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Marianne is here! Do you think she’s on serious business though?? Fool. She’s wearing a pair of cowboy boots and a western hat. She loves this campy ass set and is soaking in the warm air and slight breeze flowing through the building as she kicks her feet up at the desk.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-21 08:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="829872326325174293" id="message-829872326325174293">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="placeholder#5556">@Norm Fascinare | ihate</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-21 08:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="829874688376963073" id="message-829874688376963073">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Well guess who is here as well. After locking himself in his trailer for a bit, he decides staying locked in will just do him no good. He goes and explores the new set, which is... wild west. Of course. He searches around and finds Marianne, one of the few kind souls in such a desolate land. He sees her and greets her.</em> &quot;Hello, Marianne. It&#39;s nice to see you.&quot; <em>He smiles as he waves at her.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="829874708597178368" id="message-829874708597178368">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<span class="mention" title="nemesis#4091">@&#127881;Marianne &#127881; || Freddy</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-21 08:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="829876287366758461" id="message-829876287366758461">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Hmm?” she flicks up her hat and seeing Norm, smiles brightly. “It’s nice to see you too! It’s been a while, I’m glad to see you up and about. After all these motives and trials, I worry about people hiding away and not getting enough sun or food.” she pulled over another seat for Norm to sit in and glanced at it for him. “It’s a little thing but in a situation like this even the little things can feel impactful.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="829876407265001492" id="message-829876407265001492">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="placeholder#5556">@Norm Fascinare | ihate</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-21 09:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="829893888516423731" id="message-829893888516423731">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;All of these motives and trials have had little impact on me other than the first. I will admit, this is far from what I expected after all of that happened with the dungeon and all. I mean, this almost seems like something in an actual movie and not a movie SET. Holy, this is all just so.. weird.&quot; <em>He stares down as he sits next to her.</em> &quot;Well, I always go by a saying. The smaller things may not mean much, but rack up enough of them and they&#39;ll turn into a big thing eventually. It&#39;s proven true in many situations, but I just don&#39;t understand the process of it. I worry about myself for the most part, and yes I&#39;m aware I&#39;m selfish, but I must be selfish in order to survive this twisted shitty &#39;game&#39;.&quot; <em>He says that last part with air quotes, and a bit angry.</em> &quot;Feels good to get that off my chest for now. How have you been holding up?&quot; <em>He smiles at Marianne, but weakly.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="829893919667781692" id="message-829893919667781692">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<span class="mention" title="nemesis#4091">@&#127881;Marianne &#127881; || Freddy</span> woops</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-A50F2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="829872296814444625" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Apr-21 10:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="829905864831664138" id="message-829905864831664138">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“The subconscious can hold a lot but when it finally overflows it can feel like it came out of nowhere.” <em>Marianne let out a soft sigh. It really is a wonder why she talks this way about psychology and almost nothing else.</em> “If you want the honest answer, it’s been hard. I’ve been around death before. Hell I’ve had to deal with it more than you’d think but, this much...” <em>she looked at Norm in the eye and seemed to be in a state of neutrality. She no longer held a fierce belief in hope but she has yet to fall into despair. At the moment Marianne was on the edge, anything can push her to either side. It’s just a matter of what exactly that thing is.</em> “It’s hard to keep your head up but what else is there to do? Sit around and wait to want to kill someone? I’d rather help people while I can, no matter how useless that may seem.” <em>She returned his smile with a good amount more of confidence than him.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-21 10:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="829905890559524884" id="message-829905890559524884">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="placeholder#5556">@Norm Fascinare | ihate</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-21 10:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="829910086662225932" id="message-829910086662225932">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;....For someone who says they have an extremely low IQ you talk quite smart about such incredible topics. It&#39;s like you would be a therapist as a part time.&quot; <em>He says, and starts laughing before he regains a bit of consciousness and realizes what he said. His face turns red from embarrassment.</em> &quot;Uhhhhh..... I didn&#39;t mean that as an insult. Sorry, don&#39;t take it the wrong way.&quot; <em>He looks away for a moment.</em> &quot;Oh, well that&#39;s a quite sad experience. I didn&#39;t ever expect someone who&#39;s way too chipper to have such a sad backstory, at least not without being two-faced. Are you?&quot; <em>He asks genuinely, before realizing what he said again and shakes his head before turning red yet again.</em> &quot;God, I hate the fact that I can&#39;t think straight. Gah....&quot; <em>He groans in somewhat agony.</em> &quot;Yeah, it seems like the only we can do is wait until someone else dies again, because to me, I&#39;d rather live in despair than false hope, for false hope will only worsen the despair once it is revealed in its true form.&quot; <em>He sighs as he gets another moment of clarity.</em> &quot;It seems I have made many of the emotionally weak people here cry before, but for some reason I feel no remorse about it, like, I feel nothing about how other people feel. Well, other than the ones I care for, of course.&quot; <em>He says as he smiles a little bit less weakly at Mari.</em> &quot;Maybe something positive can come out of this. <em>I don&#39;t even half believe in what I&#39;m saying....</em>&quot; <em>He whispers the last part to himself, saying it out loud instead of in the mind. Shit.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="829910120888008734" id="message-829910120888008734">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<span class="mention" title="nemesis#4091">@&#127881;Marianne &#127881; || Freddy</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-A50F2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="829872296814444625" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Apr-21 11:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="829916856650563614" id="message-829916856650563614">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Marianne smiled at him gently. There was really nothing about this motive that can make her angry. No matter what he said to her, even when inebriated, it couldn’t make her mad.</em> “Don’t worry ‘bout it. I know what’s going on in this head of mine and it may not always be the deepest, it is gonna work it’s hardest for others.” <em>She put a hand to the back of her head and tilted her head slightly downwards to shade her eyes, it seemed that even the little light the room provided stung her eyes a bit. More than the personality affects she felt the physical affects. For someone with a constant dull headache and slight nauseous gut feeling, she seemed to be doing.. ok. In all honesty she didn’t want to move from her spot for a while.</em> “And don’t worry about any sad backstory or two faced whatever. Those situations come with my job. It’s my duty on search and rescue missions to bring closure to a family. If that means I have to carry someone’s body on my back for 4 miles just to give the family the opportunity for a proper funeral, then god damn it. I’ll do it.” <em>Marianne hadn’t let that memory slip past her lips since it happened four years ago. <s>Yeah she was 14 when that shit happened.</s></em> “It doesn’t surprise me that you don’t feel bad. Empathy is not always the best tool in this situation. It can hurt tremendously to relate to others when they are in such horrible pain. But that’s really the thing isn’t it? False hope comes from believing things will happen for you. Real hope comes from making it happen yourself. Even those people that overestimate themselves wait for something to help them fix things but, belief in yourself belief in the reality you create can shape if despair overcomes the people you care about.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">08-Apr-21 11:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="829916881028644894" id="message-829916881028644894">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="placeholder#5556">@Norm Fascinare | ihate</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">09-Apr-21 09:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="830070870017572894" id="message-830070870017572894">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;It&#39;s just this whole damn game. It&#39;s all about bond and betrayal, and at this point its getting tiring. Mentally tiring. People are becoming more and more insane by the day. It&#39;s like you&#39;re the only one who can actually keep sane even after witnessing brutal deaths over and over and over again, and being in constant fear that you might one day join them. It&#39;s.... something about you. What exactly do you have that you can keep clinging on to such false hope of rescue and unity?&quot; <em>He asks genuinely.</em> &quot;Wait, wait, wait. You carried someone&#39;s corpse in order to bring a family situation to rest? I never knew people could be so selfless. And you say that&#39;s also part of your job, that seems really fucked up to be frank. You&#39;re just a park ranger and you had to carry a corpse for 4 miles just to honor someone.&quot; <em>He looks a bit sad while saying that. It reminds him of his selfishness, and guilt begins to take its toll.</em> &quot;I just feel.. really guilty. My entire life I&#39;ve had to be selfish for selfless reasons, and listening to you actually be such an honorable and selfless person makes me remember all of what I did for those I care for. All of life can be explained by one of the basic rules of alchemy: to gain something, you must lose something of equal value, but people have been losing their lives, and we have been gaining only insanity and sadness as the realization of what this game is begins to sink into our minds. Which is why I prefer to live in despair than die for hope, real or not. I reject the hope for unity and a brighter tomorrow, for each day we have the chance to see our final sun and moon. Believing I can do anything about this situation will most definitely bring me false hope that will strengthen my despair. Why do I even have to be in this place anyway?&quot; <em>He says, as he curls himself up. He wasn&#39;t teary eyed or anything, but he was just curled up in a ball.</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="09-Apr-21 09:26 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="830070919707099146" id="message-830070919707099146">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<span class="mention" title="nemesis#4091">@&#127881;Marianne &#127881; || Freddy</span> i fell asleep sorry</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="830071169142882325" id="message-830071169142882325">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(fixed a spelling error</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-A50F2.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="829872296814444625" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Apr-21 11:53 AM</span>
+
+            <div class="chatlog__message " data-message-id="830108147716587591" id="message-830108147716587591">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“False hope?” <em>Marianne tilted her head to the side but slowly tilted it back when she felt a rush to her head. With a small smile she spoke again.</em> “You wanna know what keeps me going through everything? One, everyone here deserves to go home. Everyone. There is no exception for me and if I can help to bring <em>anyone</em> home then I will. And two, I have someone that I love more than anything in this world. He’s someone that has faced to much suffering and pain and I have never told him how I feel. If I’m not there for him...” <em>she looked down trying not to think of what he would do to himself if he had to go on without her.</em> “It wouldn’t be right for him to live and not know just how loved he is.” <em>Marianne has a lot of people relying on her and more than anything, this man that she’s talking about relies on her the most.</em> “Being selfish isn’t always a bad thing. Everyone has to prioritize themselves when the situation demands it. Not everyone can or <strong>should</strong> be selfless all the time.” <em>Honestly Norm and Marianne have almost entirely opposite philosophies. Like... entirely...</em> “That whole alchemy thing, I can’t say I believe it. Nothing in life is guaranteed nor is anything in life fairly equivalent. Most people would take that to mean something bad can happen at any time anytime￼￼ but that also means that something good can happen anytime. No matter the circumstances there’s always a chance that￼ something can go in our favor. Don’t mistake that for destiny though. Destiny isn’t real, fate is in the hands of people who are affected. And I will shape my future to make sure whoever did this to us is put away. I’ll do it to make sure we can go home.” <em>Marianne scooted her chair closer to Norm.</em> “I’ll do it to make sure you can live your life without having to be guilty of your past.” <em>Marianne wants so fucking bad to get everyone out.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">09-Apr-21 11:53 AM</span>
+
+            <div class="chatlog__message " data-message-id="830108178968346716" id="message-830108178968346716">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="placeholder#5556">@Norm Fascinare | ihate</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">09-Apr-21 12:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="830116854861266964" id="message-830116854861266964">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;If you truly believe nobody here is an exception to not go home your head is in the clouds. There are future murderers and murderers who already committed these deeds, both who will be or already are in the grave. Many here deserve the benefit of the doubt, but none deserve absolute trust, especially people like Ryu. I know the bastard is too smart to get blood on his hands, but I have a feeling he&#39;ll instead get someone who&#39;s pure and dumb to do it for him. And lets say, by these rules, that the murderer gets away with a crime. It says that the person who is voted takes the murderer&#39;s place and dies. And if that happens, and we face a murderer getting away and passing through our ranks, what then? We ALSO let everyone escape even though one of them may be a murderer? I don&#39;t believe in that. I believe in that being in constant paranoia and live instead of ignorant bliss and die to one of your &#39;friends&#39; that stabs you in the back both physically and metaphorically.&quot; <em>He says, and sighs while still curled up.</em> &quot;I do have to agree with you about the alchemy thing. Nothing in life is guaranteed and nothing is equivalent, yes, but that also applies to despair. In this place, despair is one of the few things that are guaranteed, happiness is not an option nor a luxury anyone can afford here. Destiny may not be real, but fate is in the hands of the environment. For example, the last 3 murderers. We were the judge, jury, and the indirect executioner. Which will definitely happen once again later. I am sure of it, this game will not end any time soon.&quot; <em>He looks at Marianne.</em> &quot;To live my life without remembering my past is.... a pain. Because you may not know this, but I&#39;m currently on the run from some people. Not the authorities, but some people.&quot; <em>He sighed yet again.</em> &quot;My past will always be there to torment me until I finally lose my ability to think sometime in the future, maybe even near future considering out situation.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="830116868109893702" id="message-830116868109893702">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<span class="mention" title="nemesis#4091">@&#127881;Marianne &#127881; || Freddy</span></span>
+
+                                <span class="chatlog__edited-timestamp" title="09-Apr-21 12:28 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">09-Apr-21 01:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="830136644781736028" id="message-830136644781736028">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Do those people not deserve the understanding we can give them as humans? They didn’t do something so antithetical to their nature without being forced to. And please don’t mistake my understanding for trust. I wouldn’t trust any of those people with my loved ones but that doesn’t mean I think in such black and white terms that I’d label them as evil people. And Ryu... I hate to say but if it came to it, if we vote wrong then would it not make sense to vote Ryu out? He’s the one that murdered someone morally and that means that we would have someone on the outside to help us.” <em>she sighed and looked away from Norm.</em> “Ryu can and will hurt anyone of us and if he does something that horrible it would make him near untouchable in strategy.” <em>she put her hands in her lap and looked back at Norm.</em> “Ya know Norm, there’s not many things you could have done to get someone on your ass for that long. You’re still a kid, we’re all just kids, not even being selfish can make you that big of a target.” <em>At least she hoped not. Unless he... he killed someone or something &gt;_&gt;.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="830136674242920448" id="message-830136674242920448">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="placeholder#5556">@Norm Fascinare | ihate</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">09-Apr-21 05:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="830187956673052672" id="message-830187956673052672">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(should we timeskip this for trial</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="830187977665019904" id="message-830187977665019904">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<span class="mention" title="nemesis#4091">@&#127881;Marianne &#127881; || Freddy</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">09-Apr-21 05:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="830187996623273984" id="message-830187996623273984">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( ye</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="830188031502712844" id="message-830188031502712844">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((bda but ye</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">09-Apr-21 11:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="830287558382059521" id="message-830287558382059521">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="placeholder#5556">@Norm Fascinare | ihate</span> I think u forgot about this</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">09-Apr-21 11:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="830287585334394891" id="message-830287585334394891">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(I DID</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="830287588160962561" id="message-830287588160962561">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(SHIT</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="830287626329260042" id="message-830287626329260042">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(SORRY</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">09-Apr-21 11:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="830287742923309107" id="message-830287742923309107">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((it’s ok lmao I got really busy with school work tonight</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">09-Apr-21 11:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="830287993549881375" id="message-830287993549881375">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(yeah i also had to go for a few hours</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">10-Apr-21 12:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="830291674278264854" id="message-830291674278264854">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Well... you prove a point. They were forced to commit it thanks to the environment around us, so they weren&#39;t completely at fault. But they still committed <em>murder.</em> Do you know how bad that is, forced or not? There are 3 types of people in this world: the evil people, the pure, and the fuck all. Ryu is inherently evil, people with his sort of personality are only out to get one thing: chaos. Chaos fuels their desire for an incredible lust for power and they eventually get their heads so far up their ass they lose everything. But Ryu can&#39;t die. He&#39;s too important and he holds valuable information in here.&quot; <em>He kinda gives her an awkward smile about that last part.</em> &quot;To get someone on my ass for that long? Let&#39;s just say that I stole from the wrong people and leave it there if you get what I mean.&quot; <em>He awkwardly chuckles this time.</em> &quot;Even if we are just kids, we&#39;re mature, our minds grow more mature and can hold more by age. Skill comes with age.&quot; <em>He says.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="830291690899374090" id="message-830291690899374090">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<span class="mention" title="nemesis#4091">@&#127881;Marianne &#127881; || Freddy</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">10-Apr-21 04:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="830539136711655434" id="message-830539136711655434">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((fuck I’m really busy today I might be able to reply tonight</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">11-Apr-21 01:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="830679944753053766" id="message-830679944753053766">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(oh yeah when you reply ill be sleeping</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">11-Apr-21 04:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="830896551114964992" id="message-830896551114964992">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<span class="mention" title="nemesis#4091">@&#127881;Marianne &#127881; || Freddy</span> just in case</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">11-Apr-21 04:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="830904820935688192" id="message-830904820935688192">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“... What’s the point in dividing people up like that? People can be evil, yes that’s true. But like... even evil people have a reason behind their actions. That reason isn’t an excuse but it’s still <em>a reason</em>. And really, no one is truly innocent. No one can be blind to the world forever and ‘fuck all’. What does that even mean?” <em>she let out a sigh and began fiddling with her hair, just to have something to do.</em> “You know no matter what information Ryu you has, he will never help us. The only reason he has information is to save himself and if he gets tired of this situation or if he simply wants to, he’ll never use that information to help us in anyway. Ryu’s no more important than anyone else here.” <em>Marianne looked at Norm gently and held her head as she looked down.</em> “Norm lives are hard to ruin. No matter your mistake I’m sure it won’t leave you running for the rest of your life. At some point it won’t be worth it anymore to those people who are after you.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="830904870726270996" id="message-830904870726270996">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="placeholder#5556">@Norm Fascinare | ihate</span> I live again</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">12-Apr-21 12:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="831205941881995264" id="message-831205941881995264">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(IM SORRY I HAVEN&#39;T FORGOTTEN I JUST HAD EXAMS</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">12-Apr-21 12:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="831209791689982033" id="message-831209791689982033">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Evil people have evil reasons behind their actions. Meaning they are still evil people. Also, fuck-all are the people who only do things that benefit themselves and don&#39;t care about anyone else. The difference between evil and fuck-all is that one seeks to cause chaos, the other just seeks to protect themselves. Ryu would technically fall under fuck-all, but I suspect he has bigger, more chaotic intentions in mind. The guy is an enigma, and I hate that part of him...&quot; <em>He frowns.</em> &quot;Problem is, Ryu <em>is</em> more important that other people here. He has given me information that nobody else here would give me. He must be kept alive, and then I&#39;ll find a way to get him to spill his secrets.&quot; <em>He slyly smiles.</em> &quot;Lives are hard to ruin? That&#39;s easy for you to say. Lives can be ruined in less than a few seconds. And that mistake I made, I reached beyond my grasp. Bit more than I could chew, to have a more familiar phrase. And you&#39;re right that I won&#39;t be running the rest of my life. But for the next few years, I will be. And I&#39;ll probably not even spend the next few years of my life thanks to this. What do you have going for you? And your survival?&quot; <em>He asks Marianne directly.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="831209811218661437" id="message-831209811218661437">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<span class="mention" title="nemesis#4091">@&#127881;Marianne &#127881; || Freddy</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">12-Apr-21 02:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="831238765187563590" id="message-831238765187563590">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Your system doesn’t make much sense. I’m not pure, not by any means, I know that people can be evil and that people do horrible things and that sometimes that can’t be stopped. But I’m not selfish and I’m not evil. So where does that put me?” ￼<em>She tilts her hat up and looks at Norm.</em> “ The only reason you think of you is important is because he’s manipulated you into thinking that way. It’s what abusers do they make themselves indispensable to your life so no matter how much they hurt you, you feel like you can’t get rid of them. But that’s not how this works. No matter what benefit someone gives you if they actively bring harm to you or others whatever they have to give you is not worth it. ￼ That’s not even to say that real could’ve been lying to you￼ to make him seem bigger than he really is.” <em>Her expression turned soft as she looked at Ryu.</em> “Norm, you’re being emotionally manipulated. Ryu is only human. Anything he knows, is something any one of us can know or else Monokuma would have killed him.” <em>Mari had to admit that in some circumstances a life can be ruined in a snap but it couldn’t be that easy, right?</em> “There’s nothing more to me that can guarantee my survival more than anyone else here. I could say that I’m probably the strongest person here or that I know the most people but if someone truly has evil intentions for me that won’t stop them will it?” ￼<em>She stood up with a stumble as she put a hand on the desk to balance herself.</em> “I’m sorry I can’t stay much longer I promised to meet up with someone.” <em>She didn’t leave just yet, giving Norm a chance to say goodbye.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="831238788596367380" id="message-831238788596367380">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="placeholder#5556">@Norm Fascinare | ihate</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20sheriffs-office%20%5B826241119322767400%5D.html_Files/f907b018aa79e59d5efd25a9fe303ddd-D4B18.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="placeholder#5556" data-user-id="475792369023713291" style="color: rgb(26,188,156)">Norm Fascinare | ihate</span>
+
+
+        <span class="chatlog__timestamp">12-Apr-21 06:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="831299587008495618" id="message-831299587008495618">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;By most means, you are somewhat pure. You only do what you believe is just. And because most of the time it is just, you are a pure one. Now, sometimes people do bad things, but they are still pure. Bad people do good things sometimes, but they are still bad people.&quot; <em>His eyes turn into a glare.</em> &quot;What did you just say? Me, manipulated by him? If ever. Please, Marianne. I consider you one of the very few good people here. Don&#39;t ever suggest that I am manipulated by him. And what if he&#39;s working with Monokuma? Or if he has information that nobody will believe him about?&quot; <em>He looks at Marianne yet again.</em> &quot;Your survival is guaranteed? Are you sure? I mean, I really hope so but what can you expect from this sort of sick, twisted game? Maybe someone does have evil intentions for you, but I will not let them have their twisted way with such a kind soul. You do not deserve such evil brought upon you. Nobody like you does.&quot; <em>He then looks up to Marianne, as he also stands up.</em> &quot;Well then, this is goodbye for now. I&#39;ll see you around.&quot; <em>He says, as he begins to leave.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 50 message(s)</div>
+</div>
+
+</body>
+
+</html>

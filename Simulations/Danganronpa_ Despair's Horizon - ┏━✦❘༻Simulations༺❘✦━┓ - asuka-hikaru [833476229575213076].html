@@ -1,0 +1,3180 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Despair&#39;s Horizon - asuka-hikaru</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a_965abddd25358436b082455db945621c-13B7C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Despair&#39;s Horizon</div>
+        <div class="preamble__entry">┏━✦❘༻Simulations༺❘✦━┓ / asuka-hikaru</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">18-Apr-21 06:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="833476421271158865" id="message-833476421271158865">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>Welcome to your worst nightmare, Asuka Hikaru.</em>
+</div>&gt; 
+<div class="quote"><em>Whenever you&#39;re ready, just tell me and we can get started.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833476437481750539" id="message-833476437481750539">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><span class="mention" title="Laplace&#39;s ElkiaN#8290">@Laplace&#39;s ElkiaN</span></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">18-Apr-21 08:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="833492572470247445" id="message-833492572470247445">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="ImReallyScrewed#8206">@Kev | Monokuma</span> owo</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">18-Apr-21 08:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="833506358623207486" id="message-833506358623207486">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>Asuka wakes up to nothing.</em>
+</div>&gt; 
+<div class="quote"><em>Absolute nothingness.</em>
+</div>&gt; 
+<div class="quote"><em>It&#39;s pitch black, and the ground seems to be made of a glass, which, (wait for it) on the other side is more darkness.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">18-Apr-21 09:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="833515104372916304" id="message-833515104372916304">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((BRUH WHERE&#39;S TUPPER</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833515176334458911" id="message-833515176334458911">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((F to my immersion <img class="emoji " alt="mike" title="mike" src="https://cdn.discordapp.com/emojis/742578859764875265.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">18-Apr-21 09:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="833515706775240714" id="message-833515706775240714">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(OOPS</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">18-Apr-21 09:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="833515807346655272" id="message-833515807346655272">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((time to resend</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Apr-21 09:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="833515820218974248" id="message-833515820218974248">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Finally. Time for you to die.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Apr-21 09:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="833515821921075251" id="message-833515821921075251">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>No. That isn&#39;t going to happen. Asuka still has to live. Death may be more of a threat than ever, but she still has quite a bit to live for in the world.</em>
+
+&quot;...W-Where am I...&quot;
+
+<em>The blinding darkness...</em>
+
+<em>This fear...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Apr-21 09:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="833515823820701706" id="message-833515823820701706">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Ĺ̶͌Ë̴͝T̵̊̉ ̵̊̈́M̸͆̀È̸͊ ̸̆̑Ò̷͆Ủ̶̀T̵͛͘</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Apr-21 09:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="833515825687822366" id="message-833515825687822366">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Stuck. She&#39;s stuck in this abyss of darkness, nothing but the feeling of something smooth by her feet.</em>
+
+<em>Thinking quickly, she feels the ground. She could sense with her shoes on that it wasn&#39;t dirt or glass.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Apr-21 09:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="833515827503824927" id="message-833515827503824927">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji emoji--large" alt="𝚈" title="𝚈" src="https://twemoji.maxcdn.com/2/72x72/1d688.png"><img class="emoji emoji--large" alt="𝚘" title="𝚘" src="https://twemoji.maxcdn.com/2/72x72/1d698.png"><img class="emoji emoji--large" alt="𝚞" title="𝚞" src="https://twemoji.maxcdn.com/2/72x72/1d69e.png"> <img class="emoji emoji--large" alt="𝚑" title="𝚑" src="https://twemoji.maxcdn.com/2/72x72/1d691.png"><img class="emoji emoji--large" alt="𝚊" title="𝚊" src="https://twemoji.maxcdn.com/2/72x72/1d68a.png"><img class="emoji emoji--large" alt="𝚟" title="𝚟" src="https://twemoji.maxcdn.com/2/72x72/1d69f.png"><img class="emoji emoji--large" alt="𝚎" title="𝚎" src="https://twemoji.maxcdn.com/2/72x72/1d68e.png"> <img class="emoji emoji--large" alt="𝚝" title="𝚝" src="https://twemoji.maxcdn.com/2/72x72/1d69d.png"><img class="emoji emoji--large" alt="𝚘" title="𝚘" src="https://twemoji.maxcdn.com/2/72x72/1d698.png"> <img class="emoji emoji--large" alt="𝚛" title="𝚛" src="https://twemoji.maxcdn.com/2/72x72/1d69b.png"><img class="emoji emoji--large" alt="𝚎" title="𝚎" src="https://twemoji.maxcdn.com/2/72x72/1d68e.png"><img class="emoji emoji--large" alt="𝚊" title="𝚊" src="https://twemoji.maxcdn.com/2/72x72/1d68a.png"><img class="emoji emoji--large" alt="𝚌" title="𝚌" src="https://twemoji.maxcdn.com/2/72x72/1d68c.png"><img class="emoji emoji--large" alt="𝚑" title="𝚑" src="https://twemoji.maxcdn.com/2/72x72/1d691.png"> <img class="emoji emoji--large" alt="𝚖" title="𝚖" src="https://twemoji.maxcdn.com/2/72x72/1d696.png"><img class="emoji emoji--large" alt="𝚎" title="𝚎" src="https://twemoji.maxcdn.com/2/72x72/1d68e.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Apr-21 09:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="833515829864955914" id="message-833515829864955914">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;...Someone...something... Give me a sign. I don&#39;t want to live in the dark...&quot;
+
+<em>The silence coming right after is cut short by the beating of her heart. The mind numbing silence being broken by something as minuscule as the human heart.</em>
+
+<em>God what she wouldn&#39;t give to be back in the light again...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">18-Apr-21 09:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="833516606046339092" id="message-833516606046339092">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>Suddenly, a blinding light in the distance. The light breaks the darkness, as if a hole was poked through the void. The light is absolutely white, with yellow and red edges. It’s calming, to say the least.</em>
+</div>
+<div class="quote"><em>Although, this ends rather quickly. The light starts getting larger and larger, until you realize that it isn’t, in fact, in the distance, but rapidly approaching you.</em>
+</div>
+<div class="quote"><em>This “light” reveals itself to be fire. Rushing and roaring towards Asuka, in a huge wall of fire.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Apr-21 09:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="833518373412274216" id="message-833518373412274216">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Light?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Apr-21 09:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="833518375266811914" id="message-833518375266811914">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Salvation?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Apr-21 09:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="833518376872575056" id="message-833518376872575056">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Let&#39;s move towards that-</em>
+
+<em>No.</em>
+
+<em>That light is deception, and in comes another one of the things Asuka greatly dislikes. Being burned alive is something not desired. Definitely wouldn&#39;t be very considerate of the fire to burn her. As a result, she tries to run.</em>
+
+<em>Wherever the opposite direction of the fire is, that&#39;s the direction she has chosen to move. The fire will be evaded. Fire burns, fire damages.</em>
+
+<em>Her lungs can attest to the destructive capabilities of this combustion of the air.</em>
+
+<em>But is there a way to stop the fire?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Apr-21 09:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="833518378538893312" id="message-833518378538893312">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I̶͆͒t̷͒͝&#39;̸̫̊s̷̀͐ ̶̌͊y̷̐̕ơ̷͘u̵͛͐r̵̀̑ ̵̐̆f̷̀̂a̴̪̔u̴͑̍l̸̑̓t̸̎͑</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Apr-21 09:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="833518380228149278" id="message-833518380228149278">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Yes. It is Asuka&#39;s fault. The fire was her own fault. Though originally started by someone else, her costumes made it that much worse, being easily flammable like that.</em>
+
+<em>No more reminiscence.</em>
+
+<em>She has to act on her instincts.</em>
+
+<em>A certain scientist taught her that.</em>
+
+<em>At whatever end she may be, there has to be something to carry her forward. This doesn&#39;t mean certain death does it?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 08:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="833683141011963966" id="message-833683141011963966">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>At the edge of Asuka&#39;s vision a single door appears. To where? Who knows. The door is a simple plain white door, with nothing distinguishing it from any other door.</em>
+</div>&gt; 
+<div class="quote"><em>Though, it&#39;s pretty obvious this wouldn&#39;t be the only choice. Another door, opposite that, appears. It&#39;s solid black, similar to the white door. Interestingly, it has a design of a Monokuma Eye on it.</em>
+</div>&gt; 
+<div class="quote"><em>Choose quickly~ The fire is coming and you won&#39;t be able to check what&#39;s in a door and run to the other one.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Apr-21 01:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="833753588294877230" id="message-833753588294877230">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="𝚁" title="𝚁" src="https://twemoji.maxcdn.com/2/72x72/1d681.png"><img class="emoji " alt="𝚞" title="𝚞" src="https://twemoji.maxcdn.com/2/72x72/1d69e.png"><img class="emoji " alt="𝚗" title="𝚗" src="https://twemoji.maxcdn.com/2/72x72/1d697.png">.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Apr-21 01:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="833753589821997107" id="message-833753589821997107">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>A door. That&#39;s a good sign.</em>
+
+<em>Escape the darkness.</em>
+
+<em>Escape the fire.</em>
+
+<em>Even though it illuminates the area, the fire is still another one of those things that triggers some memory within her. Those scars...they&#39;re not hers?</em>
+
+<em>Whose are they?</em>
+
+<em>Black hair?</em>
+
+<em>Who are you?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Apr-21 01:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="833753591905910805" id="message-833753591905910805">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">D̸͒̚ê̶̌m̷̓̚i̴̎̓s̴̡̕ė̸̈</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Apr-21 01:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="833753595005501510" id="message-833753595005501510">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>A black haired Haruhi...</em>
+
+<em>Where has she seen that before...</em>
+
+<em>Oh yeah...the school festival.</em>
+
+<em>Rei?</em>
+
+<em>&#39;Who&#39;s Rei...&#39;</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Apr-21 01:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="833753596818489354" id="message-833753596818489354">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="𝚂" title="𝚂" src="https://twemoji.maxcdn.com/2/72x72/1d682.png"><img class="emoji " alt="𝚝" title="𝚝" src="https://twemoji.maxcdn.com/2/72x72/1d69d.png"><img class="emoji " alt="𝚘" title="𝚘" src="https://twemoji.maxcdn.com/2/72x72/1d698.png"><img class="emoji " alt="𝚙" title="𝚙" src="https://twemoji.maxcdn.com/2/72x72/1d699.png"> <img class="emoji " alt="𝚝" title="𝚝" src="https://twemoji.maxcdn.com/2/72x72/1d69d.png"><img class="emoji " alt="𝚑" title="𝚑" src="https://twemoji.maxcdn.com/2/72x72/1d691.png"><img class="emoji " alt="𝚒" title="𝚒" src="https://twemoji.maxcdn.com/2/72x72/1d692.png"><img class="emoji " alt="𝚗" title="𝚗" src="https://twemoji.maxcdn.com/2/72x72/1d697.png"><img class="emoji " alt="𝚔" title="𝚔" src="https://twemoji.maxcdn.com/2/72x72/1d694.png"><img class="emoji " alt="𝚒" title="𝚒" src="https://twemoji.maxcdn.com/2/72x72/1d692.png"><img class="emoji " alt="𝚗" title="𝚗" src="https://twemoji.maxcdn.com/2/72x72/1d697.png"><img class="emoji " alt="𝚐" title="𝚐" src="https://twemoji.maxcdn.com/2/72x72/1d690.png">.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Apr-21 01:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="833753598620860506" id="message-833753598620860506">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Shaking her head, she makes her way to the door. But now there&#39;s two of them. A black door, and a white door. White to Asuka normally means something good. White, light, safety. That&#39;s what her mind can make of that situation, so she opens up the white door to see what&#39;s going on behind it.</em>
+
+&quot;...Give me a sign...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 02:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="833776550812975104" id="message-833776550812975104">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>It&#39;s pure light. You can&#39;t see anything unless you step into it.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Apr-21 01:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="833944119566139412" id="message-833944119566139412">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>...The light...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Apr-21 01:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="833944121537986570" id="message-833944121537986570">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>...The light...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Apr-21 01:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="833944123299069993" id="message-833944123299069993">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>...The light...</em>
+
+<em>Asuka thinks to herself whether or not heading into this is a good idea, and that moment of hesitation is truly getting to her. She still can&#39;t see anything in that light, so she has to go in head first in order to properly take in what may be on the other side of the door. Whatever it could be, she has to keep her mind in check. Right now she&#39;s trying to keep a relatively calm vibe after the darkness and the fire.</em>
+
+<em>Light does mean safety though...right?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Apr-21 01:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="833944124918857738" id="message-833944124918857738">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Soon...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Apr-21 01:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="833944126734598164" id="message-833944126734598164">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>With open eyes, the pink haired cosplayer looks into the light while treading into the unknown. She&#39;s telling herself that she&#39;s ready, but is that really such a positive thing to do? That could lead her mind to slip even further than it already may be at the moment.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">20-Apr-21 08:37 AM</span>
+
+            <div class="chatlog__message " data-message-id="834044995878387742" id="message-834044995878387742">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>The door shuts behind Asuka as she steps in. Around her, the empty space forms into a large room, resembling <span class="mention">#costume-room</span>. Though, this one is much larger, and seems to be everything that Asuka has made before.</em>
+</div>&gt; 
+<div class="quote"><em>It seems she&#39;s safe for now.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">20-Apr-21 10:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="834257094290833440" id="message-834257094290833440">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">( <img class="emoji " alt="umstare" title="umstare" src="https://cdn.discordapp.com/emojis/747999136632012841.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">20-Apr-21 11:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="834263470190100480" id="message-834263470190100480">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((I&#39;ve been studying the whole day :(</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="834264006356369429" id="message-834264006356369429">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">AFF <em>Stuck again.</em>
+Li <em>Not in the darkness.</em>
+AFF <em>That doesn&#39;t matter.</em>
+AH <em>Literacy going down cause school stuff goes brr.</em>
+
+<em>Looking around what appears to be the costume room, a smile forms on her face. She looks around, wondering what kind of costumes she could steal for herself. If she is gonna end up dying, she&#39;s gonna go out looking amazing.</em>
+
+<em>Yeah no like hell is she gonna die.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="834264040980480011" id="message-834264040980480011">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((thanks tupper</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">21-Apr-21 09:46 AM</span>
+
+            <div class="chatlog__message " data-message-id="834424890245382185" id="message-834424890245382185">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(tupper was down :(</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="834425110424846346" id="message-834425110424846346">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>A man in a suit can be seen in the distance, approaching Asuka.</em> &quot;Hey, there!&quot;</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="834425143295737866" id="message-834425143295737866">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(no literacy for you
+(hmph.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="834425149851303956" id="message-834425149851303956">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(ok fine</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="834425255605960704" id="message-834425255605960704">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>The man seems to be flipping a coin as he walks, and he has a top hat on his heat. He walks with the exaggerated swagger of a black teen. The man doesn&#39;t look like anyone you recognize, and he doesn&#39;t necessarily have any distinguishable features on his face.</em>
+</div>&gt; 
+<div class="quote"><em>An absolute stranger~</em></div></span>
+
+                                <span class="chatlog__edited-timestamp" title="21-Apr-21 09:49 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Apr-21 03:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="834517425835212860" id="message-834517425835212860">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Who?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Apr-21 03:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="834517427538100244" id="message-834517427538100244">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Who?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Apr-21 03:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="834517429022621697" id="message-834517429022621697">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Who?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Apr-21 03:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="834517431379951657" id="message-834517431379951657">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Hi? What is this place?&quot;
+
+<em>Obviously a costume room, but is it a store, some sort of backstage, or something completely different? Regardless, Asuka is looking to get out of here with more costumes. Maybe the man here that she doesn&#39;t recognize can help her out, or maybe she can help in.</em>
+
+<em>She seems to have forgotten about the situation she&#39;s currently in. She needs a grim reminder.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">21-Apr-21 07:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="834572083107201085" id="message-834572083107201085">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote">“Hm? It’s you.”
+</div>
+<em>The odd sentence absolutely makes no sense. Even so, the man continues moving forward, and leans on a rack of clothes when he’s close to Asuka. He looks at her expectantly.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Apr-21 09:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="834601413099257907" id="message-834601413099257907">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>&quot;Fuck you on? Where can I get some?&quot;</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Apr-21 09:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="834601414848020490" id="message-834601414848020490">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>&#39;Shut up.&#39;</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Apr-21 09:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="834601416605171722" id="message-834601416605171722">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;It&#39;s me? I&#39;m this place? What?&quot;
+
+<em>Well, cosplay creator...costumes... It makes perfect sense. How does the man fit into this equation though? Well, that&#39;s for her to find out as this trial goes forward. Asuka doesn&#39;t know how to calculate this, but maybe if she gave it some actual thought, it would come to her.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Apr-21 09:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="834601418375036948" id="message-834601418375036948">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Yeah that isn&#39;t happening. Put the costumes on...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Apr-21 09:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="834601420166660127" id="message-834601420166660127">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Welp...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">21-Apr-21 10:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="834611169490763856" id="message-834611169490763856">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote">“I’m your inner conscience~!”
+</div>
+<div class="quote">“Ok, no, but still. I’m here, and so are you. This place is the physical projection of your inner abstract thoughts and feelings.”
+</div>
+<em>The man seems to be going on a tangent. In the distance, you can see something glowing though.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 12:29 AM</span>
+
+            <div class="chatlog__message " data-message-id="834647114330931201" id="message-834647114330931201">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Whoooooaaaaa... So I am a room~&quot;
+
+<em>Asuka starts looking around the costume place, until she lays her eyes upon that glow in the distance. She looks at it for a few seconds before deciding to load up on costumes. Specifically costumes that she hasn&#39;t yet taken from the actual costume room. She doesn&#39;t know what&#39;s going on, so she may as well take some stuff with her.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 12:29 AM</span>
+
+            <div class="chatlog__message " data-message-id="834647116269879299" id="message-834647116269879299">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Stay here a while.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 12:29 AM</span>
+
+            <div class="chatlog__message " data-message-id="834647117896089620" id="message-834647117896089620">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>No. That&#39;s a terrible idea. We want out.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 12:29 AM</span>
+
+            <div class="chatlog__message " data-message-id="834647119582593044" id="message-834647119582593044">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Hey mystery man~ You see that over there?&quot;
+
+<em>Referring to the glow in the distance, and pointing at it, Asuka wears a curious look on her face. She wants to know what it is mainly because if this is something that&#39;s a projection of her, she wants an explanation. Is she some sorta star?</em>
+
+<em>Oh wait...she is...</em>
+
+<em>That story is for another day...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 08:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="834770672923443220" id="message-834770672923443220">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>The man looks at the direction Asuka was pointing. With a confused expression on his face, he looked back at Asuka.</em>
+</div>&gt; 
+<div class="quote">&quot;Excuse me, are you high?&quot;</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 11:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="834820246245343242" id="message-834820246245343242">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Yes.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 11:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="834820247763681291" id="message-834820247763681291">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Funny enough you&#39;re not the first person to ask that~&quot;
+
+...
+
+&quot;It&#39;s just over there...&quot;
+
+<em>Asuka finds herself walking over to the glow in the distance. With her curiosity piqued, there&#39;s no telling what&#39;s gonna happen. She personally thinks that there&#39;s a way out of here through it. And that means she can take the costumes with her on her way out. That would be the most fun for her.</em>
+
+<em>Take those costumes away, and she&#39;ll probably be a bit different than who she is now.</em>
+
+<em>Anyways, she looks towards the mystery man after taking a few steps, looking to see if he&#39;s following along. If not, this seems to be a solo adventure for the cosplayer.</em>
+
+<em>Let&#39;s see what&#39;s behind this...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 11:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="834820249882067006" id="message-834820249882067006">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Finally... Possibly a way out...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 12:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="834825631447384105" id="message-834825631447384105">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote">&quot;Er, there&#39;s nothing over there.&quot;
+</div>&gt; 
+<div class="quote"><em>Even though the man doubts Asuka, he follows her towards the light. As they approach it, the light shines brighter and brighter, until she realizes it&#39;s the same fire from before.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 04:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="834895913595174923" id="message-834895913595174923">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;But what is thi-&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 04:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="834895915894571028" id="message-834895915894571028">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Run.</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 04:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="834895917588807710" id="message-834895917588807710">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Run.</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 04:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="834895919450423348" id="message-834895919450423348">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Asuka backs up a couple of steps, clutching the costume currently in her hands. She looks towards the man with a panicked face. Yeah there&#39;s definitely something wrong with this.</em>
+
+&quot;What the hell...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 04:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="834895921342578709" id="message-834895921342578709">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>JUST RUN.</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 04:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="834895923599114300" id="message-834895923599114300">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Asuka continues backing up until she inevitably hits the wall. She wants nothing to do with that fire anymore. Obviously for a good reason. Who would willingly place themselves before an uncontrolled fire.</em>
+
+<em>Unless there is some control to be head.</em>
+
+<em>Quickly, Asuka searches around the room, looking for something to battle the fire with, while dropping the costumes. Those are very easily set ablaze, so they&#39;ll only become detrimental while on her.</em>
+
+&quot;C&#39;mon give me something...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="834916337301192715" id="message-834916337301192715">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote">&quot;What are you looking at...?&quot;
+</div>&gt; 
+<div class="quote"><em>The man continues to be puzzled, while examining the same spot that Asuka was looking at. He doesn&#39;t see it. Instead, he leans over and picks up a bunny mask.</em>
+</div>&gt; 
+<div class="quote">&quot;Ah, you mean this? This is one of the cosplay&#39;s you made during the kil--&quot;
+</div>&gt; 
+<div class="quote">&quot;Anyways, I digress. Are you OK?&quot;
+</div>&gt; 
+<div class="quote"><em>As he was speaking Asuka notices a pail of water. It&#39;s a metallic bucket, and obviously wasn&#39;t there before, but it&#39;s up to you to take it.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 07:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="834931949704708127" id="message-834931949704708127">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Never been okay.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 07:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="834931951722299402" id="message-834931951722299402">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Let&#39;s get this fire out.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 07:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="834931953483382796" id="message-834931953483382796">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Perfectly fine.&quot;
+
+<em>Asuka drops everything, then picks up the pail with both hands, going back to the glowing area that she saw to be the fire. She doesn&#39;t know if this&#39;ll be good enough, but that won&#39;t stop her from tr-</em>
+
+<em>Better idea.</em>
+
+<em>&#39;Thank you Haruhi...&#39;</em>
+
+<em>Asuka splashes the pail of water on the costumes she dropped, then picks up the now wet costumes. It may be stupid to look at, but she learned that this could actually save her life in a fire.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 07:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="834931955132792862" id="message-834931955132792862">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>She&#39;s had to deal with this before...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Apr-21 07:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="834931956659126342" id="message-834931956659126342">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Let&#39;s do this thing.</em>
+
+<em>Asuka approaches the glow once again, wet costume in hand.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">23-Apr-21 02:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="835218924098027581" id="message-835218924098027581">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>The fire gleams as Asuka approaches it...</em>
+</div>&gt; 
+<div class="quote"><em>However, in the distance is a door, with the words &quot;EXIT&quot; above it. It&#39;s blinking though, as if it&#39;ll disappear soon, like in video games.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">23-Apr-21 06:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="835278363194556457" id="message-835278363194556457">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>That&#39;s so obviously a trap.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">23-Apr-21 06:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="835278365375725569" id="message-835278365375725569">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Nah, this is fine.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">23-Apr-21 06:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="835278367082283018" id="message-835278367082283018">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Asuka wraps her vital spots with the wet costumes, and proceeds to make her way to the door.</em>
+
+<em>That exit sign is more than likely a good thing for her, so hopefully she can get out and go back to whatever normal exists back out there in the regular killing game world. Yeah, did people forget this is the motive? She has to survive this, just to survive again. Isn&#39;t that fun?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">23-Apr-21 06:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="835278809938001921" id="message-835278809938001921">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>As she steps away from the fire, it starts spreading again, consuming everything in the room. Asuka gets to watch everything that she made burn. Fun.</em>
+</div>&gt; 
+<div class="quote"><em>The door is still there though.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Apr-21 01:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="835384967415857152" id="message-835384967415857152">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Faster.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Apr-21 01:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="835384969139716107" id="message-835384969139716107">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Theoretically, this should work well enough to keep me safe. I&#39;ve had to deal with lung damage already, so more is just redundant. Even if it burns away the costumes in this room that&#39;s said to be mine, so be it. I&#39;m Asuka Hikaru, the damn Ultimate Cosplay Creator. Little sister to two other Ultimates. If I can&#39;t live through this, then I&#39;ll have failed my true purpose for this.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Apr-21 01:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="835384971233198130" id="message-835384971233198130">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>If only Asuka&#39;s determination was true. The truth is always there underneath the surface.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Apr-21 01:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="835384972990742588" id="message-835384972990742588">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>But no more of that. Onwards.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Apr-21 01:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="835384974714077194" id="message-835384974714077194">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Asuka takes a second to accelerate herself, but when she does, it&#39;s a full on sprint with all of the power in her. Her vibe right now can&#39;t be torn down.</em>
+
+<em>She won&#39;t let it.</em>
+
+<em>With wet clothes on, time to get to that door she spotted.</em>
+
+<em>Burns don&#39;t matter.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">24-Apr-21 09:15 AM</span>
+
+            <div class="chatlog__message " data-message-id="835504174879735811" id="message-835504174879735811">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>Due to Asuka ingenuity, it works, and Asuka reaches the door safely. No other obstacles are here, though the fire is quickly catching up.</em>
+</div>&gt; 
+<div class="quote"><em>The moment of truth. Open it?</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/5f268293852bab5118973206940c8b44-FB638.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;#0000" data-user-id="833515819316936744" style="">&#120443;&#120466;&#120459;&#120462;&#120475;&#120458;&#120477;&#120466;&#120472;&#120471;</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Apr-21 03:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="835594791777337399" id="message-835594791777337399">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Of course we&#39;re opening it.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/33f612bcf4e158e832ed1cc721778b77-3A782.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈#0000" data-user-id="833515819316936744" style="">A̵̿͋ ̴͑͠F̴̀͊a̸̯̍k̶̽̉e̵͆̍ ̶̿̄F̶̈̅ȃ̸͠c̴͐̒e̶̓̈</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Apr-21 03:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="835594793517973504" id="message-835594793517973504">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>I&#39;m against it.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Apr-21 03:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="835594795330174987" id="message-835594795330174987">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Twist.</em>
+
+<em>The door is right there, Asuka is safe.</em>
+
+&quot;Oh thank god... Haruhi, it actually worked. I hope you&#39;re watching me.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/929604fd3acc1376c163c20f1dfec96a-46658.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Haruhi Hikaru#0000" data-user-id="833515819316936744" style="">Haruhi Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Apr-21 03:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="835594797044727818" id="message-835594797044727818">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Who knows?)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-884D4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="833515819316936744" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Apr-21 03:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="835594852875239484" id="message-835594852875239484">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Anyways, Asuka gives it a few moments before she decides to open the door.</em></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/image0-16D58.jpg">
+                                        <img class="chatlog__attachment-thumbnail" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/image0-16D58.jpg" alt="Image attachment" title="Image: image0.jpg (40.7 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">24-Apr-21 03:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="835605936244523068" id="message-835605936244523068">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>Upon opening the door, a wave of fire washes over everything, slamming into the back of Asuka. This knocks her out.</em>
+</div>
+<div class="quote"><em>Everything goes white, until Asuka wakes up again in her dorm. It seems she’s escaped, and any injuries she’s sustained in the simulation, she also sustains in real life.</em>
+</div>
+<div class="quote"><em><strong>ASUKA HIKARU, THE ULTIMATE COSPLAYER: ESCAPED!</strong></em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="wholesome" title="wholesome" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20asuka-hikaru%20%5B833476229575213076%5D.html_Files/737438620683730954-7884D.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 92 message(s)</div>
+</div>
+
+</body>
+
+</html>

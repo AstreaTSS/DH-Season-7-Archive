@@ -1,0 +1,1262 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Despair&#39;s Horizon - reed-runar-torgeir</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/a_965abddd25358436b082455db945621c-13B7C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Despair&#39;s Horizon</div>
+        <div class="preamble__entry">┏━✦❘༻Simulations༺❘✦━┓ / reed-runar-torgeir</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-21 01:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="832311188237844520" id="message-832311188237844520">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>Note that yes, this simulation was pre-planned, so that when the motive happens you guys don&#39;t have to wait for the interaction to go on.</em>
+</div>&gt; 
+<div class="quote"><em>Assume that, in roleplay, it happens when Monokuma broadcasts it, and it goes on live.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="832311272741535774" id="message-832311272741535774">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>Welcome to your worst nightmare, Reed Runar Torgeir.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-21 03:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="832336533071331388" id="message-832336533071331388">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote">Reed wakes up in a dark room, resembling one of his villages’ basements. It’s cold and damp, and he has a blindfold over his eyes. His arms are tied with rope to a wooden support. After a bit, someone comes and rips off the blindfold off of him. It’s too dark to see who did that. <span class="mention" title="Doogie#5280">@COGGERS</span> 
+</div>&gt; 
+<div class="quote">All he knows is that this is part of the motive, and this is Monokuma&#39;s doing.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/65607bfbde00c8508ea1100526c6e54c-AD4A1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Doogie#5280" data-user-id="498565246210932746" style="color: rgb(236,134,124)">COGGERS</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-21 03:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="832338120447229962" id="message-832338120447229962">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( frick</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="832339126610165860" id="message-832339126610165860">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>God, he hasn’t felt something on his face like that in a while. He would say it was nostalgic but it was more...errr, traumatic. Even though he probably gets the whole dies of this being a motive, it still wasn’t like...very nice. Many things ran through his mind, as memories started coming back to him. He tried to look around the best he could, but I’m guessing that didn’t really get him anywhere.</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="15-Apr-21 03:38 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-21 03:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="832339655978516541" id="message-832339655978516541">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>The lights come on. Reed, after blinking for a while after being blinded, should notice the person in front of him.</em>
+</div>&gt; 
+<div class="quote"><em>It&#39;s his biological mother, seeming rather old and tired.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-21 06:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="832379714878177309" id="message-832379714878177309">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">( <span class="mention" title="Doogie#5280">@COGGERS</span> &#228;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/65607bfbde00c8508ea1100526c6e54c-AD4A1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Doogie#5280" data-user-id="498565246210932746" style="color: rgb(236,134,124)">COGGERS</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-21 08:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="832412176361717760" id="message-832412176361717760">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( sorry I’m taking forever it just
+(( a</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="832413416547155978" id="message-832413416547155978">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He visibly seemed quite conflicted. He tried to move back out of reflex, but failed to do so as he was, well...kinda stuck. He quickly looked back to in front of him, his eyes frantic. He just intensely stared at his mother, as if the moment he took is eyes away she would somehow disappear.</em>
+
+<em>How should he address her? What was she doing here? Even if it was a part of some elaborate motive, he still couldn’t get all of these thoughts out.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">15-Apr-21 09:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="832426625961558056" id="message-832426625961558056">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>Everything starts fading away.</em>
+</div>
+<div class="quote"><em>The room around him disappears, as well as his binds and his mother. It fades into a white void. A barren field, filled with only nothingness. Here, two thin outlines appear. Reed can approach them.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/65607bfbde00c8508ea1100526c6e54c-AD4A1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Doogie#5280" data-user-id="498565246210932746" style="color: rgb(236,134,124)">COGGERS</span>
+
+
+        <span class="chatlog__timestamp">16-Apr-21 03:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="832702844272377866" id="message-832702844272377866">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>For a moment, he tried to reach out his hand, as if somehow he could grab onto her. Of course, she went away before he could do anything. He looks around himself as the white, never seeing anything like it before. He looked towards the outlines.</em>
+
+<em>Should he?</em>
+
+<em>A lot of doubt went through his mind, but...well, better than standing around and doing nothing. He moved towards the outlines.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="832702923376295946" id="message-832702923376295946">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="ImReallyScrewed#8206">@Kev | Monokuma</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="832702981022810192" id="message-832702981022810192">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( bro I’m so sorry <img class="emoji " alt="wot" title="wot" src="https://cdn.discordapp.com/emojis/767421932831637514.png"> <img class="emoji " alt="whenthe" title="whenthe" src="https://cdn.discordapp.com/emojis/758395395428188201.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">16-Apr-21 03:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="832703213739573338" id="message-832703213739573338">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(nah nah you&#39;re good</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="832703503990259743" id="message-832703503990259743">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>Gene and Valdis.</em>
+</div>&gt; 
+<div class="quote"><em>Oh, boy. I&#39;m really pulling from backstory for this one. The two outlines turn around, revealing their faces. Seeing Reed they laugh and wave at him, as if they didn&#39;t know that he was... in a sticky situation.</em>
+</div>&gt; 
+<div class="quote"><em>The two figures start running around inviting Reed to follow them.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="832703886896267344" id="message-832703886896267344">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(AJNLIOHSDNKL it&#39;s fine if you take a while to respond
+(throwing an oc directly into their past situations like this isn&#39;t easy to rp</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/65607bfbde00c8508ea1100526c6e54c-AD4A1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Doogie#5280" data-user-id="498565246210932746" style="color: rgb(236,134,124)">COGGERS</span>
+
+
+        <span class="chatlog__timestamp">16-Apr-21 03:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="832704375125966952" id="message-832704375125966952">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>His eyes lit up. The thoughts of the danger of the motive sort of disappeared, instead replaced with a sort of happiness from seeing them. From what he saw they weren’t really acting how they did usually, but that didn’t really matter to him at the moment. With what should be some reluctance, he just followed behind them.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">16-Apr-21 04:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="832706988281823234" id="message-832706988281823234">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>Obviously, these two were fake. But...</em>
+</div>&gt; 
+<div class="quote"><em>As Reed follows them, the scenery fades into a new place again. A dark city, after dark, with most people asleep judging by the lights. Gene and Valdis disappear at one specific building, seeming rather broken down and worn. The words &quot;Orphanage&quot;, being the only indicator of what this could be.</em>
+</div>&gt; 
+<div class="quote"><em>Though, there are a couple of choices here. A dim light is still on within the orphanage, with the sounds of a soft lullaby being sung.</em>
+</div>&gt; 
+<div class="quote"><em>Gene and Valdis reappear at the edge of Reed&#39;s sight, waving at him, asking him to follow them further.</em>
+</div>&gt; 
+<div class="quote"><em>A man in the opposite direction is leaving his car, and moving towards Reed hurridly, saying,</em> &quot;Mr. Torgeir!&quot;</div></span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Apr-21 04:00 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/65607bfbde00c8508ea1100526c6e54c-AD4A1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Doogie#5280" data-user-id="498565246210932746" style="color: rgb(236,134,124)">COGGERS</span>
+
+
+        <span class="chatlog__timestamp">16-Apr-21 04:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="832708058987102330" id="message-832708058987102330">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>?!!?!!???????!!! QUITE THE CONUNDRUM REED HAD HERE!!...He looked back and forth, thinking, but only for about like two seconds. The man could be literally anybody, but Reed needed to go with his good pals, you know? They were the only few who have been with him for so long, and were some of the best people he knew. Even if they were acting a bit...errr, weird, it couldn’t be anything bad.</em>
+
+<em>They weren’t the sort to anyway. So he continued on and followed Gene and Val into the orphanage, ignoring the man.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">16-Apr-21 04:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="832708416606699570" id="message-832708416606699570">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(RIGHT THIS CHOICE</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">16-Apr-21 04:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="832711205310562384" id="message-832711205310562384">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>The two outlines run upstairs and down a hallway, with the hallway being rather dark.</em>
+</div>&gt; 
+<div class="quote"><em>The two walk into a room, completely silent. Two stone monuments stand in the room, with flowers and candles lit by them.</em>
+</div>&gt; 
+<div class="quote"><em>It&#39;s Valdis&#39; and Gene&#39;s graves.</em>
+</div>&gt; 
+<div class="quote"><em>The two outlines turn around to give Reed one last smile, then disappear.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">28-Apr-21 05:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="837078642001313792" id="message-837078642001313792">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>Silence.</em>
+</div>&gt; 
+<div class="quote"><em>Total silence. After Reed had froze up seeing the two tomb stones, a hand could be felt on his back. It was frigid, and Reed was frozen in spot, both in part of his choosing and of Monokuma&#39;s doing.</em>
+</div>&gt; 
+<div class="quote"><em>The person behind Reed spoke, saying,</em> &quot;Don&#39;t you want to come home? You&#39;ve caused so much... drama out here...&quot;
+</div>&gt; 
+<div class="quote"><em>The person was Reed&#39;s mother, silently whispering to Reed. Of course, he was frozen. The mother spoke again:</em>
+</div>&gt; 
+<div class="quote">&quot;Have you no answer? You&#39;ve caused so much turmoil and pain... Don&#39;t you want to come with me and be free from it all?&quot;
+</div>&gt; 
+<div class="quote"><em>No answer. A look of fear struck Reed as his mother walked in front of him, staring. The woman&#39;s hands reached into her pockets, pulling out a long, jagged knife.</em> &quot;...Reed~?&quot; <em>The woman&#39;s voice was almost sing-songy, almost mocking Reed.</em>
+</div>&gt; 
+<div class="quote">&quot;Then you&#39;ll die in silence, just like your friends.&quot;
+</div>&gt; 
+<div class="quote"><em>The mother thrusted the knife directly into Reed, stabbing him in the abdomen. He fell forward, and his mother caught him.</em> &quot;For what it&#39;s worth, Reed... I truly am sorry.&quot;
+</div>&gt; 
+<div class="quote"><em>She let Reed go, and he fell to the floor beside the graves. As Reed bled out, you could see two thin outlines, prancing around him, as if they were celebrating his death.</em>
+</div>&gt; 
+<div class="quote"><em><strong>REED RUNAR TORGEIR, THE ULTIMATE FOLK MUSICIAN: DEAD!?</strong></em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128077;" title="&#128077;" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBSimulations%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20reed-runar-torgeir%20%5B830944130942107678%5D.html_Files/1f44d-1485B.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 22 message(s)</div>
+</div>
+
+</body>
+
+</html>

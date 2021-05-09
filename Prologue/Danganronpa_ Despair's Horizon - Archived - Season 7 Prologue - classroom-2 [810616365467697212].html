@@ -1,0 +1,3059 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Despair&#39;s Horizon - classroom-2</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/a_965abddd25358436b082455db945621c-13B7C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Despair&#39;s Horizon</div>
+        <div class="preamble__entry">Archived - Season 7 Prologue / classroom-2</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="810618061430063124" id="message-810618061430063124">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy is here... in classroom 2.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="810618074993917962" id="message-810618074993917962">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//pfft</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="810618138676691034" id="message-810618138676691034">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>big</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="810618158372880434" id="message-810618158372880434">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((sorry i-</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="810618159505604638" id="message-810618159505604638">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Iris here</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="810618195953057813" id="message-810618195953057813">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Hahahahah how the fuck do u rp i frogot</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="810618377848225792" id="message-810618377848225792">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy sees some people in the classroom along with him, &quot;Hi everyone!&quot; He tries to say loudly but accidentally mumbles.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="810618852626268160" id="message-810618852626268160">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Marianne looks about the room curiously before sitting on a desk because god knows she can’t fit in a seat easily. “Hello~~ Nice to meetcha! I’m Marianne, Ult Forest Ranger. What’s up?” she said a bright smile on her face despite not seeing her eyes she sure is looking at ya Roy.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="810619139806330950" id="message-810619139806330950">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Iris looks around and seeing other humans</em> &quot;Oh Hello! I&#39;m Iris, the Ultimate Actor&quot; <em>s t r e t c h</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="810619468907806810" id="message-810619468907806810">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Asuka can be seen sleeping on one of her desks. The pink haired girl looks like she&#39;s enjoying her nap.</em>
+
+<em>Poke to wake her up.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="810619491389669426" id="message-810619491389669426">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Uh- hi! My name is <strong>Roy Greyson</strong>... I&#39;m known as <strong>The Ultimate Grey Hat</strong>!&quot; Roy seemed a bit more comfortable as he meet smiling faces. Even he gave a little grin. &quot;Nice to meet you both, you both have such cool talents!!&quot; Roy seemed very interested in their talents despite being ashamed of his own.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="810619622403080242" id="message-810619622403080242">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;G-Grey hat? You&#39;re a hat?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="810619676819718184" id="message-810619676819718184">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;You do not look like a hat.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128511;" title="&#128511;" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/1f5ff-09251.png">
+                                <span class="chatlog__reaction-count">6</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620109281689620" id="message-810620109281689620">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;I- uhm... Not like that kinda hat. Like I do cyber security, and stuff...&quot; Roy now went from a small grin to embarrassed. &quot;Sorry, I know my talent is confusing, even if it&#39;s considered a talent...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620241070522368" id="message-810620241070522368">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Roy, Iris... It’s nice to meet you both. Ahhh~ It’s always nice to meet such cute nice people.” She looks up at Iris and then stands matching his height.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620358141935647" id="message-810620358141935647">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Such rarity, to match 7&#39;2&quot;</span>
+
+                                <span class="chatlog__edited-timestamp" title="14-Feb-21 04:16 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620391412334622" id="message-810620391412334622">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((So tall <img class="emoji " alt="🗿" title="🗿" src="https://twemoji.maxcdn.com/2/72x72/1f5ff.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620406587326534" id="message-810620406587326534">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Interesting... Hey what about that sleeping girl over there&quot; <em>Iris slightly pointed to Asuka</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620526326317056" id="message-810620526326317056">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((Poke her~</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620598551314459" id="message-810620598551314459">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Uhm, do we wanna wake her up? That seems rude tho...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620731590311956" id="message-810620731590311956">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Hey man~ might be dead, I would go check.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620853976825856" id="message-810620853976825856">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Excuse me—“ she goes over and pats Asula’s head.</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="⭐" title="⭐" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/2b50-412B1.png">
+                                <span class="chatlog__reaction-count">5</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620910825635910" id="message-810620910825635910">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(FIRST HEADPAT OF THE SEASON</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="fumpog" title="fumpog" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/757640296929558549-5BFF4.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+            <div class="chatlog__message " data-message-id="810620931101556757" id="message-810620931101556757">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(LESS THAN 24 HOURS</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620933958139914" id="message-810620933958139914">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="810620958221139968" id="message-810620958221139968">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(I THINK THIS IS A NEW RECORD</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621003231264849" id="message-810621003231264849">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Headpat any%</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/7a595acbba19f36025a02c056d095b88-B9A83.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ronk#5269" data-user-id="447899165373235200" style="color: rgb(87,87,87)">Small child || Daddy Romk</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621020834496532" id="message-810621020834496532">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">// <img class="emoji " alt="👏" title="👏" src="https://twemoji.maxcdn.com/2/72x72/1f44f.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621055840026634" id="message-810621055840026634">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(15 Minutes WR</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621067731271681" id="message-810621067731271681">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Speed running the head pat.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621104589897828" id="message-810621104589897828">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Mmm...&quot;
+
+<em>Asuka is a light sleeper. She opens her eyes and turns her head to see the others, not lifting it up.</em>
+
+&quot;Oh~ Hey~&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621164837535755" id="message-810621164837535755">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;So she&#39;s not dead, Hello!&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/fe455709e889b7905067bab320f8982c-45969.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="KrisNDM#9999" data-user-id="375272195154509825" style="color: rgb(173,20,87)">kris</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621234819629057" id="message-810621234819629057">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<s>not yet she isnt <img class="emoji " alt="👀" title="👀" src="https://twemoji.maxcdn.com/2/72x72/1f440.png"></s>)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621260286525480" id="message-810621260286525480">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(oowooowowowow)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621411478470667" id="message-810621411478470667">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy tries to speak but then stops himself. He then takes a breath and says, &quot;Hi...&quot; For some reason it seems harder to talk to the girl who was sleeping than the others.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621525296021544" id="message-810621525296021544">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(p i n k  h a i r</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621547369857025" id="message-810621547369857025">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Hello sleepy-head!” she greets cheerfully. The head pat lingers for a second before her hand goes to her hip. “You feeling ok?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621688437014529" id="message-810621688437014529">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Napping on the first day, wow.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621770507747359" id="message-810621770507747359">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Ah... I&#39;m doing fine~&quot;
+
+<em>There&#39;s a relaxed smile on her face as she lifts herself up, leaning back in her chair.</em>
+
+&quot;You all should take a nap~ It&#39;s nice~&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/fe455709e889b7905067bab320f8982c-45969.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="KrisNDM#9999" data-user-id="375272195154509825" style="color: rgb(173,20,87)">kris</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621804171100210" id="message-810621804171100210">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Same-)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/7a595acbba19f36025a02c056d095b88-B9A83.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ronk#5269" data-user-id="447899165373235200" style="color: rgb(87,87,87)">Small child || Daddy Romk</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="810621895379648542" id="message-810621895379648542">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">// pick her up and throw her</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="810622053186535466" id="message-810622053186535466">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Well at least they were here on time... this is the right classroom right?&quot; Roy uses they instead of he or she alot so he doesn&#39;t accidentally mess genders up.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="810622207901564938" id="message-810622207901564938">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Looks like it.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="810622387916767273" id="message-810622387916767273">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“If only there was a bed... a big bed to sleep on would be so nice.” she sighs dreamily before turning to Roy. “Yep! I wonder where the others are honestly.” she put a finger to her chin in thought.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Marianne MacMahon#0000" style="">Marianne MacMahon</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;810622387916767273&#39;)">
+                    <span class="chatlog__reference-content">
+“If only there was a bed... a big bed to sleep on would be so nice.” she sighs dreamily before turning to Roy. “Yep! I wonder where the others are honestly.” she put a finger to her chin in thought.                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="810622644054917200" id="message-810622644054917200">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;The announcement said four classrooms and a hallway.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="810622832866361428" id="message-810622832866361428">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Asuka yawns loudly. She sounded like she was really having fun in her dreams.</em>
+
+&quot;Sooooo~ Who are you people~? I&#39;m Asuka Hikaruuuuu~ Ultimate Cosplay Creator~&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="810623026151948399" id="message-810623026151948399">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Iris, Ultimate Actor, nice to meet you.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="810623083152539662" id="message-810623083152539662">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;I really hope we aren&#39;t in the wrong classroom... My talent sucks so I barely got in, and if I got in the wrong classroom day one...&quot; Roy starts to panic a bit. Could he really mess up this opportunity day one. Well at least they&#39;re other people in my same position. However at least they&#39;re other people in my same position.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="810623234227175465" id="message-810623234227175465">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;If hope&#39;s peak let you in you it&#39;s obviously a good talent.&quot;</span>
+
+                                <span class="chatlog__edited-timestamp" title="14-Feb-21 04:27 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="810623396751605770" id="message-810623396751605770">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Marianne MacMahon! Ult Forest Ranger-“ she then looks at Roy with a sceptical glance before pulling him into a side hug. “And this is the amazingly talented Roy. Hope you don’t mind us waking you up.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="810623664185802823" id="message-810623664185802823">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Even if this were the wrong classroom~ Wouldn&#39;t that just add more spice to your life~? Haha... And there is no bad talent. Only spice~&quot;
+
+<em>Spice? What? Asuka explain-</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="810623782006947850" id="message-810623782006947850">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">s!snipe</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Turtle Warrior#9991" style="color: rgb(255,0,0)">amukonoM | veK</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;810623782006947850&#39;)">
+                    <span class="chatlog__reference-content">
+s!snipe                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/1d6da3f5b1c230e84dde45d25eb0ccf4-F9B2D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Seraphim Bot#2203" data-user-id="700857077672706120" style="color: rgb(137,207,240)">Seraphim Bot</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="810623782112329789" id="message-810623782112329789">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(67,120,252,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+                                        <div class="chatlog__embed-author">
+                                                <img class="chatlog__embed-author-icon" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/87cf5b7b42153cef8a4e7ac88b0af174-FF1C2.png" alt="Author icon">
+
+                                                <span class="chatlog__embed-author-name">
+Sonic Senpai~ | Victoria Hadrian (Sonic49#7171)                                                </span>
+                                        </div>
+
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace">(el spice me up daddy</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                                <div class="chatlog__embed-footer">
+
+                                    <span class="chatlog__embed-footer-text">
+
+
+14-Feb-21 04:29 PM                                    </span>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="⭐" title="⭐" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/2b50-412B1.png">
+                                <span class="chatlog__reaction-count">8</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/65607bfbde00c8508ea1100526c6e54c-AD4A1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Doogie#5280" data-user-id="498565246210932746" style="color: rgb(236,134,124)">COGGERS</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="810623863179837503" id="message-810623863179837503">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( what</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/fe455709e889b7905067bab320f8982c-45969.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="KrisNDM#9999" data-user-id="375272195154509825" style="color: rgb(173,20,87)">kris</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="810623896763891723" id="message-810623896763891723">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(wh-)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="810623947975426068" id="message-810623947975426068">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The hug scared him at first, but he defiantly felt more comfortable here. <em>At least there&#39;s nice people like Marianne and Iris here.</em> Roy then wanted to thank them but he didn&#39;t know how. &quot;Thank you both...&quot; Roy felt a bit embarrassed saying that... but it was the least he could do.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-AA7EA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="810618060468781056" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="810623993068912660" id="message-810623993068912660">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((I&#39;ll spice you up my little kouhai~</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="810624349123379240" id="message-810624349123379240">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Asuka then reaches into her pocket and takes out a pair of sunglasses. She puts them on ofc.</em>
+
+<em>Why were they in there-</em>
+
+&quot;Hey, as a Cosplay Creator, I can make some costumes for you guys~~~&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="810624542329929759" id="message-810624542329929759">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;There are a lot of people that do that kinda stuff for acting.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="810624650580197416" id="message-810624650580197416">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy not wanting to disappoint Asuka, he accepts. &quot;Yes, of course!!!&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="810624808411988048" id="message-810624808411988048">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“No thank you necessary— WAIT HUH?” Marianne squeezed Roy against her for a moment before letting go. “I’ve never done anything like that since stuff doesn’t fit me— ah~ it sounds really fun!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="810624944655695943" id="message-810624944655695943">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Roy is gonna get hugged to death</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="810624951501455370" id="message-810624951501455370">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Iris was sitting down but is now standing. t a l l (hahahahah)</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="810625449708355664" id="message-810625449708355664">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;We can all wear something nice and flashy~ Wouldn&#39;t that be nice and spicy~?&quot;
+
+<em>Asuka is already thinking of what the three other people in here would look good in. Obviously a maid outfit is universal, but like...hmm...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="810625609944137799" id="message-810625609944137799">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(maid outfit pog)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="810625720303878196" id="message-810625720303878196">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;I&#39;d be down for sure, yeah.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="810625755285159966" id="message-810625755285159966">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Sure.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="810625968560799754" id="message-810625968560799754">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="👁" title="👁" src="https://twemoji.maxcdn.com/2/72x72/1f441.png"><img class="emoji " alt="👁" title="👁" src="https://twemoji.maxcdn.com/2/72x72/1f441.png"> Tall. “Well would you look at that—“ she puts a hand up to see that Iris was just as tall as her. “Looks like Ive got a fellow tall~ Oh! And I honestly like wearing stuff that doesn’t take a lot of fabric.” she lifts a muscular arm. “No danger of ripping anything!” she chuckles.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="810626061767278592" id="message-810626061767278592">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//A fellow &quot;tall&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="810626107485061170" id="message-810626107485061170">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Yes, you are very tall.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/755497698563457024-D9F52.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="810626190749859872" id="message-810626190749859872">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;I used to think I was tall...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/fe455709e889b7905067bab320f8982c-45969.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="KrisNDM#9999" data-user-id="375272195154509825" style="color: rgb(173,20,87)">kris</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="810626196765016084" id="message-810626196765016084">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<em><strong>Tall</strong></em>)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="810626198505259048" id="message-810626198505259048">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;I can make clothes out of whatever you want~ It doesn&#39;t matter what kind of fabric is used to me~&quot;
+
+<em>Tilde.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="810626250976526356" id="message-810626250976526356">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(tilde)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="810627168098058260" id="message-810627168098058260">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(oh fuck i have a splinter</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="810627179510759424" id="message-810627179510759424">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(gonna have to brb</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="810627390400888852" id="message-810627390400888852">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Iris you better start preparing, I’ve met hugged anyone my height so you are in danger of hugs.” she then patted Roy on the head and gave a joking wink. “You still are pretty tall, just not tall enough to get a concussion when you go through a doorway.” she gave a small laugh. “I can’t imagine how much creativity must be bursting out of your head if you can make stuff like that Asuka!” she can’t help but praise.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="810627638950363187" id="message-810627638950363187">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;F u c k&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/755497698563457024-D9F52.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="810627733327183922" id="message-810627733327183922">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//???</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="810627763949273128" id="message-810627763949273128">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="810627944648278056" id="message-810627944648278056">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;My mind is spicy~ I have all sorts of ideas for what you can wear. Muscular... You would make for a nice model~&quot;
+
+<em>Oh...oh no. Mari run before Asuka subjects you to her cosplay antics.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="810628040857092126" id="message-810628040857092126">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Well where I used to live, you&#39;d be surprised...&quot; Roy then thinks about his old home, well can he even call it a home.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="810628110013169715" id="message-810628110013169715">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;WELL~ I should get going&quot; <em>Iris quickly leaves into <span class="mention">#hallway</span></em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="810628349964976149" id="message-810628349964976149">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Uhm, are we in the wrong classroom?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="810628992586874900" id="message-810628992586874900">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Mari puts a hand up to her mouth as a grin spread across her face. “How flattering, mhmhmh! And Roy no more hitting your head or else I’ll have to get us helmets to protect the thinker.” no more head pat sowwy. “If you want we can explore a bit, I’m sure Iris has the right idea.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="810629292421414962" id="message-810629292421414962">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Maybe we should go check the hallways and look for our class?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="810629525289435136" id="message-810629525289435136">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Exploring? Yeah I can find more models~ And then maybe I can stream them one day...with their permission~&quot;
+
+<em>Asuka stands up. She&#39;s only 5&#39;11&quot; so...</em>
+<em>She proceeds to throw her black cloak on and leaves her sunglasses on. Whenever everyone goes, so shall she.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-5361F.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810618060468781056" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="810629755258798141" id="message-810629755258798141">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy leaves to go to the hallway.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-2AA50.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810618060468781056" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 04:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="810629948514500649" id="message-810629948514500649">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Ah, how mysterious-“ she says towards Asuka as she motions for her to follow, making sure to hold the door open for her on the way out.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20Archived%20-%20Season%207%20Prologue%20-%20classroom-2%20%5B810616365467697212%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="810630018828206090" id="message-810630018828206090">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Alright~&quot;
+
+<em>With a smile on her face, Asuka follows.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 90 message(s)</div>
+</div>
+
+</body>
+
+</html>

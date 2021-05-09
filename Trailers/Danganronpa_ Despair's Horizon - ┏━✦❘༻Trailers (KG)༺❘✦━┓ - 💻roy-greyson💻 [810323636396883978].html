@@ -1,0 +1,3553 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Despair&#39;s Horizon - &#128187;roy-greyson&#128187;</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/a_965abddd25358436b082455db945621c-13B7C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Despair&#39;s Horizon</div>
+        <div class="preamble__entry">┏━✦❘༻Trailers (KG)༺❘✦━┓ / &#128187;roy-greyson&#128187;</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 03:51 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="810614166334865408" id="message-810614166334865408">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>It’s a trailer. More specifically, Roy Greyson’s trailer. This is one of the trailers arranged in the trailer park for use. Upon entering, it seems like a normal trailer, fitted for luxurious use. You can tell that everything here is rather high quality.</em>
+
+<em>A bed to the side takes up much of the room, but the rest of the trailer is large enough for you to walk around in. In that space contains your wardrobe, containing multiple copies of the clothes you came with (OOC: The clothes in your OCs reference image.) Seemingly, they get washed as soon as you change out of them.</em>
+
+<em>There is also a desk to the side. On the desk is a stack of paper and some pencils and pens. An office chair also accompanies the desk. Here, you can do any sort of writing and work that you may need to. A desk lamp is also here, in case you want to work at night.</em>
+
+<em>Overall, that’s it. There are no windows, so you won’t have to worry about privacy. However... There are some items that were left specifically for Roy Greyson.</em>
+
+<u>Special Items</u>
+- An old broken laptop.
+- Some programming charts. (if/and graphs.)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:07 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="810618229733982215" id="message-810618229733982215">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://media.discordapp.net/attachments/810323761853104129/810606617799557120/image0.jpg">https://media.discordapp.net/attachments/810323761853104129/810606617799557120/image0.jpg</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/image0-63AE2.jpg">
+                                            <img class="chatlog__embed-thumbnail" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/image0-63AE2.jpg" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-7038A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 05:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="810642288514301962" id="message-810642288514301962">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy runs into his trailer crying... &quot;Why, does this have to happen to me?&quot; Roy locks the door and covers himself in his sheets. <em>I don&#39;t want to have to deal with this.</em> Roy then gets up, he doesn&#39;t have time to cry. He starts investigating the room and notices a broken laptop. <em>I wonder what I can do with that? Can I learn how to fix it?</em> Then he looks at his programming charts. <em>I mean, I don&#39;t need it, so why is it here?</em> There are some questions that Roy needs to answer. Any advantage can help him. Right?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 05:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="810642342570229791" id="message-810642342570229791">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(you have fucking if statements on your wall lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 05:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="810642423213850655" id="message-810642423213850655">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/920cf31fb1dddd140d1bd1f15ae15771-0650C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Turtle Warrior#9991" data-user-id="419179513298288650" style="color: rgb(255,0,0)">amukonoM | veK</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 05:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="810642456101912626" id="message-810642456101912626">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(what a sad life</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="810642513790631976" id="message-810642513790631976">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(atleast you don&#39;t have lorum ipsum though</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 05:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="810642552813518869" id="message-810642552813518869">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-F7538.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810642287666135040" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 05:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="810643495818887178" id="message-810643495818887178">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Knock knock knock.</em> 
+“Roy? Please open the door I’m worried about you.” she says concern in her voice as she stands in front of his door.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-7038A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 05:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="810643758130921543" id="message-810643758130921543">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy immediately recognizes the voice. &quot;Marianne, i&#39;m coming.&quot; Roy opens the door to let her in.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/65607bfbde00c8508ea1100526c6e54c-AD4A1.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Doogie#5280" data-user-id="498565246210932746" style="color: rgb(236,134,124)">COGGERS</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 05:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="810643864124653618" id="message-810643864124653618">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( mother bear Marianne</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-F7538.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810642287666135040" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 05:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="810644533314453505" id="message-810644533314453505">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">As soon as he opens the door and she takes a few steps inside, she takes a deep breath and hugs Roy. “You’re okay physically, right? I understand the stress this has put us all under.” she says gently.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-7038A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 05:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="810644902110167040" id="message-810644902110167040">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Yeah i&#39;m doing okay, thanks. I think it&#39;s best we learn about this place before we deal with the stress of being here...&quot; Roy very clearly was crying but he&#39;s trying to hold it in to confront this problem.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 05:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="810645472540360724" id="message-810645472540360724">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//I&#39;ll be in the bathroom brb</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-F7538.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810642287666135040" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 05:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="810645624928075776" id="message-810645624928075776">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Nuh-uh, holding in that anxiety will cloud your mind far too much to think clearly. Put your mental health first or else you won’t be able to help yourself or anyone else.” she pulls back from the hug slightly to look at his face, too bad her bangs still cover half of her own.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 06:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="810646604532809748" id="message-810646604532809748">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//I&#39;m back</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 06:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="810646657212481576" id="message-810646657212481576">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((heyoo</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-7038A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 06:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="810647198547050496" id="message-810647198547050496">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Yeah, I guess you&#39;re right...&quot; Roy takes some deep breaths. &quot;Thank you so much friend- i-, sorry... I mean uh-&quot; Roy feel embarrassed. &quot;I think i&#39;d feel more comfortable if I knew what i&#39;m up against... want to go check out you trailer? Mine has computer stuff so i&#39;m sure yours will have something related to your talent, right?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 06:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="810647829727019068" id="message-810647829727019068">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((ROY IS GONNA SEE HER SOB</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 06:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="810647875083698226" id="message-810647875083698226">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Shh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="810649182998102056" id="message-810649182998102056">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Pick up Roy I dare you ahem</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="810649372927852554" id="message-810649372927852554">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//I still can&#39;t get over that we have two people who are 7&#39;2&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-F7538.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810642287666135040" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 06:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="810649478276972545" id="message-810649478276972545">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">She smiled softly at him and pulled away fully, put her hands on his shoulders with a quick pat pat and then scratching at her head. “No need to thank me <em>friend~</em>” she was for sure going to say it if he wouldn’t. “Let’s go see what mine has in store. Maybe I have some maps of old parks I would work at. I could show you where I’ve seen some of the most amazing things.” she leans down and sweeps him off his feet, bridal style. “Let’s go!” No hesitation she will CARRY HIM.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-7038A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 06:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="810650071384326154" id="message-810650071384326154">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy is very frightend of Marianne picking him up, but I mean, transport is transport. Also Marianne called him a friend? That&#39;s something no one has every called him before, even his friends of the past. He said, &quot;alright, i&#39;m ready.&quot; Then they went to Marianne&#39;s trailer.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 06:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="810650197884534784" id="message-810650197884534784">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//I keep almost calling the trailers cabins.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-F7538.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810642287666135040" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 06:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="810650745845579776" id="message-810650745845579776">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Resistance is futile.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 06:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="810650775377281064" id="message-810650775377281064">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-7038A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 06:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="810660501952397313" id="message-810660501952397313">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy walks in and puts the bear head in a cabinet where no one can see it.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-7038A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 09:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="810696547377479721" id="message-810696547377479721">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy walks in, grabs a pen. Then he walks over too his spare bed. He grabs one of the pillows and draws a cute little smiley face on it. Roy starts rushing back to Kotohina.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 10:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="810718588943335424" id="message-810718588943335424">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">Happy Valentines Day!
+
+I hope this finds you safely. This situation we’ve found ourselves in is unfortunate but we have to look forward :D!! I trust you all and hope to meet you all very soon. Sorry I have to make this short cause I’m writing so many of these ;-;. Still please come find me if you want any help or even just some company! I’m always happy to serve and protect ;3. And you can throw out the cookies if you don’t trust them or don’t want them. I’ll understand :). They’re vegan by the way! I hope you can find some joy on a day as special at this! &lt;3 Your a sweetie by the way I’m glad to be your friend so quickly :D.
+
+Love Marianne MacMahon.</div>
+
+<em>There is a small package of chocolate chip cookies next to the note.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-7038A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 11:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="810726268143534100" id="message-810726268143534100">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy walks in to see chocolates at his door. Despite the terrible situation. Roy has started to really like the people around him, not including Ryu. He gets in his bead after locking the door, and goes to bed.</span>
+
+                                <span class="chatlog__edited-timestamp" title="14-Feb-21 11:20 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/fe455709e889b7905067bab320f8982c-45969.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="KrisNDM#9999" data-user-id="375272195154509825" style="color: rgb(173,20,87)">kris</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 11:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="810726996131840023" id="message-810726996131840023">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(not including himself??)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 11:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="810727131994259486" id="message-810727131994259486">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//OMG</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="810727279297691689" id="message-810727279297691689">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Fixed</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 11:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="810727319080927253" id="message-810727319080927253">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(i love how often we get the names mixed up
+(please let it be a running joke</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 11:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="810727431379091527" id="message-810727431379091527">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Lmao, so far only me and Royal have screwed it up, who will be next?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/fe455709e889b7905067bab320f8982c-45969.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="KrisNDM#9999" data-user-id="375272195154509825" style="color: rgb(173,20,87)">kris</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 11:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="810727470126202930" id="message-810727470126202930">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(probably me)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">15-Feb-21 08:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="810871904998129694" id="message-810871904998129694">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(akari/araki is the bane of my existence</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128065;️" title="&#128065;️" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1f441-76548.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">15-Feb-21 01:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="810936173505019955" id="message-810936173505019955">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Dream Land</strong> with <strong>Roy Greyson</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-7038A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Feb-21 01:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="810938774020030495" id="message-810938774020030495">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy wakes up on a couch in the middle of a room. There are two doors on each side of him, both are see through. Roy sits up, only to see the glare coming from his right. When he inspects closer it&#39;s someone with a blade. There&#39;s a man with blond hair, a brown button up shirt, and grey dress pants. Roy remembers where he is. He&#39;s in a killing game. This man is gonna try and kill him. He starts running through the door on his left finding himself in a kitchen. It&#39;s dark and everything is hard to see, the only noticeable thing is a small fridge. Roy the runs through a hallway running past multiple bedrooms. Wait, where is he again? It seems like a mix between a hotel and a house. He then sees some stairs so he does a safety vault over the railing onto the stairs and starts running up. The man just slides the railing and trails him from right behind. Luckily, Roy reaches the safety of his room where he sees a <strong>dog</strong>. I wonder why there&#39;s a <strong>dog</strong> there. Was there a <strong>dog</strong> in the killing game? Does Roy own  a <strong>dog</strong>? It&#39;s really dang odd that there&#39;s a <strong>dog</strong> in Roy&#39;s room. The man goes into his own room where Roy hears another voice. Suddenly the <strong>dog</strong> barks. The other voice from the man&#39;s room says, &quot;How&#39;d he get a <strong>dog</strong>?&quot; Roy then thinks about it, he realizes this is a dream. Now Roy is lucid dreaming. So is their a <strong>dog</strong> in my trailer? Where in the world did this <strong>dog</strong> pop into my head? Then a blade is stabbed through Roy&#39;s door. He gets scared and hugs the adorable <strong>dog</strong>, and then wakes up.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">15-Feb-21 01:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="810938947874062366" id="message-810938947874062366">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(man thats rawgh</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/755497698563457024-D9F52.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/8a48171f82a2a850442a0cf62263d82e-7038A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Feb-21 01:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="810938996221018183" id="message-810938996221018183">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy wakes up to see no <strong>dog</strong>? Yeah that was a really weird dream huh...</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">15-Feb-21 01:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="810939028945895424" id="message-810939028945895424">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<s>in all seriousness good job i like it</s></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">15-Feb-21 01:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="810939113292431421" id="message-810939113292431421">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//I actually had that dream last night, I just added some details too it lol.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="810939758775500862" id="message-810939758775500862">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//However in my dream I woke up and for some reason here a body had already been discovered,</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">15-Feb-21 01:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="810939921614241873" id="message-810939921614241873">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(not yet</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">15-Feb-21 02:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="810950459879194684" id="message-810950459879194684">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Also Roy changed back into regular clothes, not a maid at the moment, sadly</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">15-Feb-21 11:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="811089857618903081" id="message-811089857618903081">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Congrats, a note has been left on the door.</em>
+<div class="pre pre--multiline nohighlight">Hello there everyone~
+
+It&#39;s me Asuka Hikaru, the Ultimate Cosplay Creator~
+
+I would just like to let you know that I feel like making a custom cosplay for everyone. I&#39;ll leave the request sheet on the door of my trailer. 
+
+First come first serve~
+
+Can&#39;t wait to make something for you~~~</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Feb-21 11:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="811089996127666186" id="message-811089996127666186">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy walks in and rushes to her trailer.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Feb-21 10:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="811261072446849025" id="message-811261072446849025">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy goes to bed here 10 hours ago</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/755497698563457024-D9F52.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">16-Feb-21 10:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="811261503935741972" id="message-811261503935741972">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Dream Land</strong> with <strong>Roy Greyson</strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Feb-21 10:43 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="811261858967191572" id="message-811261858967191572">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(I feel the biggest part of my apps problems were a short backstory, so these dreams are somewhat cannon, btw.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="811262779070742579" id="message-811262779070742579">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Also I also had this dream last night</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Feb-21 10:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="811264403097518110" id="message-811264403097518110">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy is eating some cereal with milk. I would mention the cereal is lucky charms, but we&#39;re not trying to get this season in any lawsuits. Roy&#39;s <strong>dog</strong> starts barking. So he takes her outside with him. I should also mention that this dog is a golden doodle, but more white than golden. Her name is Zoey, however Roy calls here Dawn, sometimes. The dog goes to play in a ditch for a bit while Roy is watching her. However next to the ditch is a busy road. <span class="spoiler spoiler--hidden" onclick="showSpoiler(event, this)"><span class="spoiler-text">Zoey then runs up on the road while carrying a stick. Roy grabs on to the stick now super nervous for his <strong>dog</strong>. He tries to yank the stick but the dog let&#39;s go. He then rushes onto the road but in front of him, an asshole in a white car comes and hits Zoey, killing the <strong>dog</strong> instantly.</span></span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">16-Feb-21 10:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="811264445933682728" id="message-811264445933682728">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//TW: Animal death</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="811264542452613120" id="message-811264542452613120">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//IDK if that&#39;s a trigger but, just to be safe</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Feb-21 11:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="811265995108122674" id="message-811265995108122674">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy wakes up with a gasp and in tears... &quot;I-... Uh-&quot; Why does this <strong>dog</strong> keep appearing in my dreams...? I don&#39;t remember having a <strong>dog</strong>. What the <strong>dog</strong> mine? Anyways, I need to get ahold of myself.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">16-Feb-21 11:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="811266109759422474" id="message-811266109759422474">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(dog</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Feb-21 01:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="811301371528872016" id="message-811301371528872016">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy grabs the computer... and leaves.</span>
+
+                                <span class="chatlog__edited-timestamp" title="16-Feb-21 01:22 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-21 12:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="811466237754343445" id="message-811466237754343445">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy is in his trailer... Not peeping on people...</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/6d3dc9374a7f933b1c8e09d4ce2b2d5d-E58BD.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ryu Okura#0000" data-user-id="810642287666135040" style="">Ryu Okura</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-21 12:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="811467037213720586" id="message-811467037213720586">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Come on Roy. Take my offer, be my spy.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-21 12:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="811467231573311539" id="message-811467231573311539">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//I meant like what&#39;s happening with Mari and Ult Priest</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/53e75a0efa3d8b377038575f8bc6fe24-8FC11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Royalcat08#6390" data-user-id="721911813632950335" style="">Royalcat08</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-21 12:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="811467320555733023" id="message-811467320555733023">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//EVEN THEN</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-F7538.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810642287666135040" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-21 12:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="811467492815011880" id="message-811467492815011880">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//you can watch <img class="emoji " alt="💞" title="💞" src="https://twemoji.maxcdn.com/2/72x72/1f49e.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/fcc6b569b18adcada177dca5acd1ea7d-CF7EF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lascivo Aoineho#0000" data-user-id="810642287666135040" style="">Lascivo Aoineho</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-21 12:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="811467625241509899" id="message-811467625241509899">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//you can join~</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/20d563721d5dcafb938ec733387a3b52-5283E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="PandaPrince#0321" data-user-id="339972906693951489" style="color: rgb(113,54,138)">Catboy Panda-monium</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-21 12:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="811467637023834145" id="message-811467637023834145">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//lmao</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/9c5e6eb3e46493c4cd3c913cff2e5e38-F7538.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Marianne MacMahon#0000" data-user-id="810642287666135040" style="">Marianne MacMahon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-21 12:22 AM</span>
+
+            <div class="chatlog__message " data-message-id="811467701918629908" id="message-811467701918629908">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//don’t be shy &lt;3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-21 12:23 AM</span>
+
+            <div class="chatlog__message " data-message-id="811467825529094204" id="message-811467825529094204">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy has a lot to think about. How does he escape, how does he make everyone happy. Should he follow Ryu&#39;s deal? What do his dreams mean? Roy decides to spend the night awake trying to figure out what to do next... Plus he really doesn&#39;t want to have another bad dream.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-21 12:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="811467985784012801" id="message-811467985784012801">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//It doesn&#39;t make sense for his character (right now) to be peeping...</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-21 12:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="811468268707512341" id="message-811468268707512341">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((<s>careless whisper blasting from pigeon’s room</s></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-21 12:36 AM</span>
+
+            <div class="chatlog__message " data-message-id="811471188878557214" id="message-811471188878557214">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">This note only raised more questions. Where did Ryu get this book in the first place... Maybe Roy should sleep on it, maybe these dreams are trying to tell him something... But what&#39;s the dog about, Roy <strong>defiantly</strong> doesn&#39;t remember having a <strong>dog</strong>.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="811471251083231282" id="message-811471251083231282">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy sleeps on these questions.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/53e75a0efa3d8b377038575f8bc6fe24-8FC11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Royalcat08#6390" data-user-id="721911813632950335" style="">Royalcat08</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-21 12:37 AM</span>
+
+            <div class="chatlog__message " data-message-id="811471271601897483" id="message-811471271601897483">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//gavin really be pushing for his dog</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-21 12:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="811471780849647626" id="message-811471780849647626">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//What can I say except, <strong>Dog</strong>.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">17-Feb-21 10:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="811615027487965184" id="message-811615027487965184">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Dream Land</strong> with <strong>Roy Greyson</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="811616208428073013" id="message-811616208428073013">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//No this dream I made up, unlike the other 2.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Feb-21 10:13 AM</span>
+
+            <div class="chatlog__message " data-message-id="811616360949481572" id="message-811616360949481572">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy is in a room that is pitch black. Or at least Roy assumes it&#39;s a room, he can feel the concrete floor, so it&#39;s be odd if he wasn&#39;t in a room. He starts searching around the room, then a light turns on... well more of a spotlight. It shines over a <strong>dog</strong>... Wait a sec, that&#39;s Roy&#39;s <strong>dog</strong>, but didn&#39;t it get hit by a car? &quot;$#%!, is that really you!?&quot; Roy walks towards to the the <strong>dog</strong>. But as he gets closer, the <strong>dog</strong> turns around, with red eyes... and jumps at Roy! Roy then wakes up.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="811616581514690590" id="message-811616581514690590">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Wh- why couldn&#39;t I hear myself say the dogs name? Is it my dog? Why do I keep having dreams about this dog?&quot; Anyways, I should head out.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-21 01:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="811840879240151080" id="message-811840879240151080">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy goes to bed, thinking of the <strong>dog</strong>.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/7a595acbba19f36025a02c056d095b88-B9A83.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ronk#5269" data-user-id="447899165373235200" style="color: rgb(87,87,87)">Small child || Daddy Romk</span>
+
+
+        <span class="chatlog__timestamp">18-Feb-21 04:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="811889303742971947" id="message-811889303742971947">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Knock Knock! Here&#39;s a little gift for you! And look! There&#39;s a note!</em>
+
+<div class="pre pre--multiline nohighlight">Hi! I&#39;m not sure if you know me, but if you do, hi friend! And if you don&#39;t, I&#39;m Kotohina Asai and I&#39;m the ultimate Toy Maker! I wanted to make everyone a gift in hopes that they could keep it to make them happy! So, take this little plush ducky! And, I hope that we can be friends!
+
+Sincerely Kotohina</div>
+
+<em>With the note is a small little stuffed duck made out of felt</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">18-Feb-21 10:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="812169945814794252" id="message-812169945814794252">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Okay i&#39;m just gonna apoligise for being so inactive today, I just had alot of school work to catch up on... and yeah... (4 projects, don&#39;t judge me)... so yeah... sorry I missed like, a day...</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="812170043268792372" id="message-812170043268792372">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Also no dream today</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">18-Feb-21 10:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="812170232898650193" id="message-812170232898650193">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(yeah thats fair</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Feb-21 10:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="812170937096208404" id="message-812170937096208404">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy wakes up (at a regular time) and sees a little gift by his door. It&#39;s a stuffed duck. He then reads the note and gets a little emotional. A tear runs down his face. It&#39;s been really hard these past few days dealing with this, whatever it is at this point. &quot;I&#39;m not sure if Kotohina relies how much this m- means to me... but I hope she knows how special little things like this go when it comes to situations like this.&quot; Roy grabs the duck and squeezes it in a hug. It feels really good...</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="812171120626630697" id="message-812171120626630697">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy decides to make a note with the paper provided.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Feb-21 01:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="812207276152455210" id="message-812207276152455210">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy goes to sleep...</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">19-Feb-21 01:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="812207323921252352" id="message-812207323921252352">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//I will do a dream tommorow</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">19-Feb-21 08:35 AM</span>
+
+            <div class="chatlog__message " data-message-id="812316491835506729" id="message-812316491835506729">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote">Zoey. Dog. Yes yes, Kev uh, remembers stuff. Dog food, dog house, dog.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">19-Feb-21 06:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="812461002385391626" id="message-812461002385391626">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Dream Land</strong> with <strong>Roy Greyson</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Feb-21 06:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="812461010862604300" id="message-812461010862604300">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy gets up. He is in the middle of a field, there&#39;s 4 kids. 2 of them appear to be above 7 foot, and the other 2 are about his height. One of the tall one starts to speak. &quot;Alright, we&#39;re gonna play a little game with you punks. It&#39;s gonna be a vote, whoever gets the most votes is gonna get fucking murdered. If you try and run, you&#39;ll also get murdered. If it ties, you fuckin&#39; guessed it, everyone gets murdered.&quot; Roy stays calm and thinks. He tells the boy on his to vote for the other girl on his right. He agrees, however the girl hears, all going according to Roy&#39;s plan. Roy then takes 4 steps back making him the back of the group. The two giants say it&#39;s a tie, one goes for the boy, one goes for the girl. Roy begin at the back knew he&#39;d be the last to get targeted. Roy glances back and sees <span class="spoiler spoiler--hidden" onclick="showSpoiler(event, this)"><span class="spoiler-text">both of the girl&#39;s and boy&#39;s head decapitated.</span></span> What a brutal game, but Roy figured if they just voted for the boy, either the giants would say it tied and lied to kill them all, or since there&#39;d be 2 left, it&#39;d be easier just to kill him and whoever else is left to avoid witnesses. Roy keeps running, he finds a public mall and runs in. He&#39;s safe now.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">19-Feb-21 06:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="812461109172109312" id="message-812461109172109312">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//Extream violence trigger warning</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="ImReallyScrewed#8206" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;812316491835506729&#39;)">
+                    <span class="chatlog__reference-content">
+<div class="quote">Zoey. Dog. Yes yes, Kev uh, remembers stuff. Dog food, dog house, dog.</div>                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">19-Feb-21 06:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="812462144762150953" id="message-812462144762150953">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Dog</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">19-Feb-21 08:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="812503233619558410" id="message-812503233619558410">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//I&#39;ll deal with the dog when Roy gets back to his trailer.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Feb-21 01:15 AM</span>
+
+            <div class="chatlog__message " data-message-id="812568054998499359" id="message-812568054998499359">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy Greyson walks into the room or even realizing anything is different, he gets in bed and falls asleep instantly.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">20-Feb-21 01:15 AM</span>
+
+            <div class="chatlog__message " data-message-id="812568125949870131" id="message-812568125949870131">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Tupper?)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="812568384113213450" id="message-812568384113213450">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//discord isn&#39;t working for me right now and I don&#39;t know why</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/18f959599a10897fc67d1913efb00776-F305E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Zoey#0000" data-user-id="810642287666135040" style="">Zoey</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Feb-21 01:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="812568499406635038" id="message-812568499406635038">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Zoey hops up on the bed and snuggles up against Roy.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/1ef69a4e3461a622b00c94782faecedc-15D6B.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Dr. Gavin#0001" data-user-id="509490194014011392" style="">Dr. Gavin</span>
+
+
+        <span class="chatlog__timestamp">20-Feb-21 01:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="812568789089517569" id="message-812568789089517569">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//oh it&#39;s working now</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Feb-21 02:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="812765911106846790" id="message-812765911106846790">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">For some reason, Roy doesn&#39;t dream at all. He then walks out not noticing the dog following him from behind as he walks out.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/9b25de3848ef703ee1f34ecafe4be697-E95D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CagiestMonkey8#9368" data-user-id="422447246060158996" style="color: rgb(255,0,0)">Cagiest | Alice Betterman</span>
+
+
+        <span class="chatlog__timestamp">20-Feb-21 06:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="812832392422883329" id="message-812832392422883329">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>A note a has been left at your door! It says:
+
+Hi! I know some of you might be worried about the jeopardy game, but don’t worry! Even if we don’t get them all right if we work together there’s no way we’ll miss enough of them to fill up the bad bar! And remember, Hope’s Peak is looking for us and we’ll be out of here in no time! If you ever wanna have some fun while we wait or just talk to someone, come find me! I can’t wait to continue being friends with you all while we’re here and after we escape!
+
+- Alice Betterman!</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Feb-21 11:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="813087913734701057" id="message-813087913734701057">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy went to sleep here, Roy wakes up.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/18f959599a10897fc67d1913efb00776-F305E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Zoey#0000" data-user-id="810642287666135040" style="">Zoey</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Feb-21 11:41 AM</span>
+
+            <div class="chatlog__message " data-message-id="813087968138231819" id="message-813087968138231819">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Zoey went to sleep here, Zoey wakes up.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Feb-21 11:42 AM</span>
+
+            <div class="chatlog__message " data-message-id="813088153509953536" id="message-813088153509953536">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy has the dog stay in the dog house so they&#39;re safe and heads out to <span class="mention">#trailer-park</span>.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/18f959599a10897fc67d1913efb00776-F305E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Zoey#0000" data-user-id="810642287666135040" style="">Zoey</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Feb-21 06:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="813546551632330843" id="message-813546551632330843">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Zoey left awhile ago btw.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">22-Feb-21 08:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="813578844938174534" id="message-813578844938174534">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>A note has been left at your door.</em>
+
+<div class="quote">&quot;It has come to my attention that you should not trust anything I say. After all, I am the Ultimate ???, and many parts of me have been proven to be lies. Keep an eye out on me. It would be the best for all of you if you did.&quot;
+It was clearly signed by Victoria Hadrian.</div></span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Feb-21 08:19 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Feb-21 04:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="814240472468946965" id="message-814240472468946965">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy gets out of the bed that he was most defiantly in...</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/9b25de3848ef703ee1f34ecafe4be697-E95D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CagiestMonkey8#9368" data-user-id="422447246060158996" style="color: rgb(255,0,0)">Cagiest | Alice Betterman</span>
+
+
+        <span class="chatlog__timestamp">25-Feb-21 02:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="814575875651141652" id="message-814575875651141652">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Hi, there’s a note at your door! It says:.
+
+Don’t believe anything Monokuma says about anything anymore. One of us didn’t kill Araki, Monokuma did. He probably got scared his cruel, twisted plan wasn’t working because none of us were killing anyone and did it himself to make us suspicious of each other. Don’t believe his lies! We can’t be friends while we wait for Hope’s Peak to rescue us if we’re all suspicious of each other!  We shouldn’t let Araki’s death tear us apart! He wouldn’t want that!.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">26-Feb-21 02:09 AM</span>
+
+            <div class="chatlog__message " data-message-id="814756076766494770" id="message-814756076766494770">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hmmm... Something about this note doesn&#39;t seem right. I want to believe him, but after the whole Victoria situation, I&#39;m not sure I can trust anyone. But why would Alice say wait for Hopes Peak to rescue us when she knows they&#39;re probably the ones responsible for us being here. We were kidnapped on their grounds after all. Regardless... I can&#39;t believe this note without proof. So I&#39;m gonna go out there and prove to everyone who the real murder of this case is.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Feb-21 04:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="815328877898891294" id="message-815328877898891294">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I guess it&#39;s time... there&#39;s no holding back, we must find the truth of this case. Roy walks to the trial room.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-87060.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="810642287666135040" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Feb-21 09:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="815406933003468840" id="message-815406933003468840">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The Sou Hiyori cosplay has arrived!</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Feb-21 09:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="815417808334356490" id="message-815417808334356490">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/unknown-1491B.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/unknown-1491B.png" alt="Image attachment" title="Image: unknown.png (595.98 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/18f959599a10897fc67d1913efb00776-F305E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Zoey#0000" data-user-id="810642287666135040" style="">Zoey</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Mar-21 09:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="817591680550043650" id="message-817591680550043650">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Woof woof! Wufwufwufwufwufwufwufwufwufwufwuf!&quot; Bark woof bark?(Where is Owner?)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/324ef64a06062dffceb17af4717c5036-15168.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Roy Greyson#0000" data-user-id="810642287666135040" style="">Roy Greyson</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Mar-21 05:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="819328987599077376" id="message-819328987599077376">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Roy is here thinking about this case.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%92%BBroy-greyson%F0%9F%92%BB%20%5B810323636396883978%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">12-Apr-21 11:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="831363649556709406" id="message-831363649556709406">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote">This room is locked.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 114 message(s)</div>
+</div>
+
+</body>
+
+</html>

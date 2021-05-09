@@ -1,0 +1,2050 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Despair&#39;s Horizon - &#128481;eanna-wisteria&#128481;</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/a_965abddd25358436b082455db945621c-13B7C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Despair&#39;s Horizon</div>
+        <div class="preamble__entry">┏━✦❘༻Trailers (KG)༺❘✦━┓ / &#128481;eanna-wisteria&#128481;</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 03:25 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="810607798915170365" id="message-810607798915170365">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>It’s a trailer. More specifically, Eanna Wisteria’s trailer. This is one of the trailers arranged in the trailer park for use. Upon entering, it seems like a normal trailer, fitted for luxurious use. You can tell that everything here is rather high quality.</em>
+
+<em>A bed to the side takes up much of the room, but the rest of the trailer is large enough for you to walk around in. In that space contains your wardrobe, containing multiple copies of the clothes you came with (OOC: The clothes in your OCs reference image.) Seemingly, they get washed as soon as you change out of them.</em>
+
+<em>There is also a desk to the side. On the desk is a stack of paper and some pencils and pens. An office chair also accompanies the desk. Here, you can do any sort of writing and work that you may need to. A desk lamp is also here, in case you want to work at night.</em>
+
+<em>Overall, that’s it. There are no windows, so you won’t have to worry about privacy. However... There are some items that were left specifically for Eanna Wisteria.</em>
+
+<u>Special Items</u>
+- Twin swords. 
+- Some basic leather armor.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 04:06 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="810618069973598228" id="message-810618069973598228">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://media.discordapp.net/attachments/810323761853104129/810606617799557120/image0.jpg">https://media.discordapp.net/attachments/810323761853104129/810606617799557120/image0.jpg</a></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/image0-63AE2.jpg">
+                                            <img class="chatlog__embed-thumbnail" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/image0-63AE2.jpg" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 05:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="810641444657823775" id="message-810641444657823775">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Kicking the door in without even trying to figure out if the door was open, she sighed and looked around.</em>
+<em>Her eyes and overall expression... actually softened quite a bit. Thid place actually did not seem too bad. Not less comfortable than her usual sleep under the stars.</em>
+<em>However, one thing had her brighten up more. Her swords. Right there.</em>
+<em>Ignoring the armor ENTIRELY she threw herself at them, hugging them tight, almost squealing.</em> 
+&quot;Eeeeeeeee.......!!! You&#39;re here...!!! You&#39;re actually herrrreeeeee...!!! Heheheheheeeeee...!&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="810641726934745088" id="message-810641726934745088">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Aaaaah, thank god...&quot; <em>She smiled brighter by the second, especially as she put the blades back at her belt, sighing in comfort.</em> &quot;Good... Back together.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Feb-21 06:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="810648399497134150" id="message-810648399497134150">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Though she needs to consider that armor thing. What the hell was this piece of scrap..?</em>
+<em>Huffing, she brought it outside and went to the costume room. Surely, it came from there.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">14-Feb-21 10:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="810717944346181692" id="message-810717944346181692">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">Happy Valentines Day!
+
+I hope this finds you safely. This situation we’ve found ourselves in is unfortunate but we have to look forward :D!! I trust you all and hope to meet you all very soon. Sorry I have to make this short cause I’m writing so many of these ;-;. Still please come find me if you want any help or even just some company! I’m always happy to serve and protect ;3. And you can throw out the cookies if you don’t trust them or don’t want them. I’ll understand :). They’re vegan by the way! I hope you can find some joy on a day as special at this! &lt;3
+
+Love Marianne MacMahon.</div>
+
+<em>There is a small package of chocolate chip cookies next to the note.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Feb-21 12:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="810925052282798101" id="message-810925052282798101">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>She did open the door while leaving... to this. Eanna blinked: How did she have enough time to do this? Or did she spend that long cuddling her blades? God, that wouldn&#39;t surprise her so much, actually.</em>
+
+<em>Taking the note, she raised an eyebrow.</em>
+&quot;...Huh? Valentine&#39;s..?&quot;
+&quot;...&quot;
+&quot;.....&quot;
+&quot;...The hell is that..?&quot; <em>She set the note onto her own desk. It&#39;s easy to imagine Eanna was never interested in romance, and even less in stuff like Valentine&#39;s.</em>
+<em>Still, cookies? Hm.</em>
+
+*Well she won&#39;t throw them away. Who knows. Maybe later. For now she put them away on her desk.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/d8f39c9ece502b02ec1747e6d8635335-6FA6C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Laplace&#39;s ElkiaN#8290" data-user-id="221760256697565185" style="">Laplace&#39;s ElkiaN</span>
+
+
+        <span class="chatlog__timestamp">15-Feb-21 11:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="811089707047321630" id="message-811089707047321630">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Congrats, a note has been left on the door.</em>
+<div class="pre pre--multiline nohighlight">Hello there everyone~
+
+It&#39;s me Asuka Hikaru, the Ultimate Cosplay Creator~
+
+I would just like to let you know that I feel like making a custom cosplay for everyone. I&#39;ll leave the request sheet on the door of my trailer. 
+
+First come first serve~
+
+Can&#39;t wait to make something for you~~~</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/7a595acbba19f36025a02c056d095b88-B9A83.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ronk#5269" data-user-id="447899165373235200" style="color: rgb(87,87,87)">Small child || Daddy Romk</span>
+
+
+        <span class="chatlog__timestamp">18-Feb-21 04:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="811889204480311306" id="message-811889204480311306">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Knock Knock! Here&#39;s a little gift for you! And look! There&#39;s a note!</em>
+
+<div class="pre pre--multiline nohighlight">Hi! I&#39;m not sure if you know me, but if you do, hi friend! And if you don&#39;t, I&#39;m Kotohina Asai and I&#39;m the ultimate Toy Maker! I wanted to make everyone a gift in hopes that they could keep it to make them happy! So, take this little plush ducky! And, I hope that we can be friends!
+
+Sincerely Kotohina</div>
+
+<em>With the note is a small little stuffed duck made out of felt</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/9b25de3848ef703ee1f34ecafe4be697-E95D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CagiestMonkey8#9368" data-user-id="422447246060158996" style="color: rgb(255,0,0)">Cagiest | Alice Betterman</span>
+
+
+        <span class="chatlog__timestamp">20-Feb-21 06:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="812832230874808350" id="message-812832230874808350">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>A note a has been left at your door! It says:
+
+Hi! I know some of you might be worried about the jeopardy game, but don’t worry! Even if we don’t get them all right if we work together there’s no way we’ll miss enough of them to fill up the bad bar! And remember, Hope’s Peak is looking for us and we’ll be out of here in no time! If you ever wanna have some fun while we wait or just talk to someone, come find me! I can’t wait to continue being friends with you all while we’re here and after we escape!
+
+- Alice Betterman!</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">22-Feb-21 08:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="813578742584311828" id="message-813578742584311828">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>A note has been left at your door.</em>
+
+<div class="quote">&quot;It has come to my attention that you should not trust anything I say. After all, I am the Ultimate ???, and many parts of me have been proven to be lies. Keep an eye out on me. It would be the best for all of you if you did.&quot;
+It was clearly signed by Victoria Hadrian.</div></span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Feb-21 08:17 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Feb-21 04:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="814242571660427295" id="message-814242571660427295">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Honestly Eanna&#39;d been staying very passive so far. Until...</em>
+
+<em>Until an alarm got her to look at that Monopad thing.</em>
+<em>What&#39;s this about a body? The music room?</em>
+&quot;Tss, had a feeling this would happen eventually with this quiz thing. God...&quot;
+<em>She stared at the message for a moment, before closing the Monopad, and standing up, walking out.</em>
+&quot;Alright... Let&#39;s see this for ourselves...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/9b25de3848ef703ee1f34ecafe4be697-E95D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CagiestMonkey8#9368" data-user-id="422447246060158996" style="color: rgb(255,0,0)">Cagiest | Alice Betterman</span>
+
+
+        <span class="chatlog__timestamp">25-Feb-21 02:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="814575662235910144" id="message-814575662235910144">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Hi, there’s a note at your door! It says:.
+
+Don’t believe anything Monokuma says about anything anymore. One of us didn’t kill Araki, Monokuma did. He probably got scared his cruel, twisted plan wasn’t working because none of us were killing anyone and did it himself to make us suspicious of each other. Don’t believe his lies! We can’t be friends while we wait for Hope’s Peak to rescue us if we’re all suspicious of each other!  We shouldn’t let Araki’s death tear us apart! He wouldn’t want that!.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Mar-21 05:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="819333443665264672" id="message-819333443665264672">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>And here she was. Back in the trailer.</em>
+<em>Laying her swords down on her bed,she inspected them slowly. Gladly, there wasn&#39;t any crack in the blades, but she&#39;ll need to keep them sharp.</em>
+
+<em>As to the clothing...</em>
+
+<em>Maybe she should think about it later. For now, she might put to use that paper and pen.</em>
+<em>&quot;Hey. Saw you go off all jumbled up, so... I thought I&#39;d let you know that I&#39;m gonna be sitting around in my trailer for now.&quot;</em>
+&quot;...I guess for now that works...&quot;
+<em>It might have seemed fast to external POVs, but in reality, this alone took her 30 minutes to squeeze out. 30 minutes of the swordswoman sitting at a desk, pen in hand, tapping her cheek and looking up in thought. How does she spin these words well enough?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="819334608431743016" id="message-819334608431743016">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Pen&#39;s mightier than the sword huh... Maybe it&#39;s not SO bad to learn a bit of that side too... Sure woulda been handy now...&quot;
+
+<em>Running a hand through her hair, she leaned back in her seat, blinking once while staring at the ceiling.</em>
+
+<em>What would they say?</em>
+
+&quot;...Mmm... Maybe...&quot;
+<em>She leaned over her letter again, writing down some more.</em>
+
+<em>&quot;If you want to crash by my place, you can whenever. I&#39;ll lend you my ears if you want me to listen.</em>
+
+<em>Eanna&quot;</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="819335830875275324" id="message-819335830875275324">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;...&quot; <em>Staring at it, she huffed eventually and threw it away, laying onto her desk.</em>
+
+&quot;Naaaah... It sounds dumb... Way too dumb.. I know her since what. Maybe a couple hours top? And I&#39;ll just act all worried and caring suddenly? That&#39;s just plain weird if you ask me, anyone would get freaked out.&quot;
+
+<em>She closed her eyes, remaining like this for some time... Still, it was hard to get the thought out of her head. Eanna&#39;s mind sent one image : Akari, alone in her trailer weeping, and in fact, slowly, that image extended to some others she&#39;d already seen crying. Kotohina, for example.</em>
+
+<em>Maybe she should...</em> 
+
+&quot;Haaa... I guess I should try to be around for them... At least some more.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="819336035745529857" id="message-819336035745529857">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;...Maybe it&#39;s not so dumb...&quot;
+
+<em>She stood up and grabbed the still neat paper, since she hadn&#39;t balled it up.</em>
+
+&quot;...Yeah. Yeah, maybe.&quot; <em>Out she went.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="819336465250516993" id="message-819336465250516993">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Back in her trailer after mailing her note in, she flopped in her bed, next to her blades, huffing.</em>
+
+&quot;...well... now we wait, huh.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#129402;" title="&#129402;" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/1f97a-338D5.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Mar-21 06:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="820081468218146826" id="message-820081468218146826">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>And back she is. Laying down on her bed, and waiting on her new outfit. Although, seriously, her shagged shirt is becoming a damn hussle to keep around. So she undid her cape tie, laid it besides her and removed her shirt just to wrap herself in said cape, just as she would when she&#39;d sleep in the open.</em>
+
+<em>Now this was comfort. Not only had she the softness and warmth of that cape but also a mellow surface underneath, a bed mattress.</em>
+
+<em>Yes, she&#39;d remain like that for now. Door&#39;s unlocked, by the way, after all she is expecting Asuka and Akari, and did plaster a note on the door before going to nap : &quot;Akari, Asuka, feel free to enter.&quot;</em>
+<em>She was expecting these two after all.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/2b4b97e08b0a7516421d0be2983a9d33-9B9D9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akari Rosi&#233;r#0000" data-user-id="810641443592732673" style="">Akari Rosi&#233;r</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 02:24 AM</span>
+
+            <div class="chatlog__message " data-message-id="820195648871727134" id="message-820195648871727134">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">After the short walk from her own trailer, Akari was here, but even just that wore her out a bit more. And it showed, too; she looked like a complete mess. Her face was red and wet, her clothes were wrinkled, her hair was disheveled, a bit of makeup was smeared around her eye…
+At a single glance, anyone would be able to tell that she’d been crying for quite a while.
+
+Looking up as she stood outside the door, the note caught her attention.
+<em>Asuka.</em> Who was that again? She couldn’t recall, but she hoped she wasn’t about to interrupt something… At least, she couldn’t hear any voices coming from the trailer.
+
+She carefully opened the door, looking around as she entered and closed it behind her. It didn’t take her long to notice the sleeping Eanna on the bed, and she wondered if she should stay… Would it be strange to? She wanted to tell herself that it wasn’t. She just didn’t really want to be alone anymore, and if she had to wait a bit for Eanna to wake up, that was okay.
+
+She sat up against the wall next to the bed, closing her eyes for just a few moments and managing to enter an easier state of peace.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/dab1c47959d3968b56a342dad2f4aa14-3372D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="gabby666#5969" data-user-id="284589540553916416" style="color: rgb(173,20,87)">gabby || Akari Rosi&#233;r &#127801;</span>
+
+
+        <span class="chatlog__timestamp">13-Mar-21 02:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="820195815065911327" id="message-820195815065911327">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="Ewi#4524">@Eanna Wisteria [Ewi]</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 04:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="820234162538545183" id="message-820234162538545183">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Worry not. Sleeping in the open has given the girl a very unique skill : Waking up when noise goes past a certain amount that raises her alarm level sufficiently to wake up.</em>
+
+<em>Besides it was but a nap. She wasn&#39;t all that asleep, so it wasn&#39;t so hard to get back up. Although doing so required her to both stretch and yawn for a little bit, after freeing herself from her cape burrito.</em>
+
+<em>And here she was. Her battered shirt just thrown away a while ago simply because it just wasn&#39;t wearable anymore by now, sitting up and slowly looking towards Akari, giving her a little wave.</em>
+
+&quot;Ah, thought I heard someone come in... Go on, make yourself cosy...&quot; <em>She did wave a hand through her hair, giving her a soft smile. Akari&#39;s current messy look wasn&#39;t lying. The girl was in desperate need of company, and most importantly, of something else to think about.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/2b4b97e08b0a7516421d0be2983a9d33-9B9D9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akari Rosi&#233;r#0000" data-user-id="810641443592732673" style="">Akari Rosi&#233;r</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 08:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="820291561682108438" id="message-820291561682108438">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Hearing Eanna sit up, Akari opened her eyes halfway and looked up at her, somewhat shyly. “Ah… S-sorry, it wasn’t my intention to wake you so soon.” She apologized, her voice weak and soft. “I just… I read your letter and I didn’t want to be alone anymore… It was all becoming too difficult to bear.” She explained honestly.
+
+Deciding it would be better to be closer, she managed to lift herself from the floor and sat on the bed by Eanna. But rather than continue to look at her, she stared down at her lap instead, gaze completely downcast. “Still… t-thank you for thinking of me. Even though it was so careless of me to run off like that earlier…”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 09:18 AM</span>
+
+            <div class="chatlog__message " data-message-id="820299804864413727" id="message-820299804864413727">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;I&#39;ll admit, you were lucky these robots didn&#39;t stick around.&quot; 
+<em>There were many ways to interact with Akari at this point, just as she was sitting next to Eanna. That said, she had only one in mind.</em>
+
+<em>The... now actually obviously strongly built young swordswoman gently brought her hand to Akari&#39;s head, giving the girl some casual, soft headrubs. It&#39;s funny how many contradictions she embodies. Looks normal on the outside, strangely deadly in battle, hiding muscled arms and legs past the clothing, and yet acting so soft and mellow.</em>
+
+&quot;I sent my letter with one thought in mind : That you shouldn&#39;t spend that time alone. We all need someone to talk to, in hard times, you know. And I&#39;m glad you decided to cash in on that offer. You can stay here for as long as you wish, Akari.&quot;
+
+&quot;Oh, and, of course, you&#39;re free to tell me of anything that... You know, worries you, saddens you, insert-bad-thing-here you. My hearing&#39;s still in its prime, better use it, y&#39;know?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/2b4b97e08b0a7516421d0be2983a9d33-9B9D9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akari Rosi&#233;r#0000" data-user-id="810641443592732673" style="">Akari Rosi&#233;r</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 11:12 AM</span>
+
+            <div class="chatlog__message " data-message-id="820328582886850570" id="message-820328582886850570">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The gentle headrubs caused Akari to blush softly, but more importantly, they helped to warm and calm her from the inside out. Since all this started, she really began to miss receiving affection such as this. Though it seemed to be such a simple act, the effect it had on her was a bit more than just that.
+
+Despite her weary and depressed state, she took in each of Eanna’s words with care. Not that she would ever complain about it, but it was almost strange… The two of them had known each other for such a short period of time, and yet Eanna was willing to do so much just to help Akari feel better. Was this what friendship was like? How nice…
+
+With that being said, she wasn’t sure just how deep she should get into her feelings. She didn’t want to say too much and end up making herself a burden. She wanted to be careful, but letting <em>most</em> things out was also important.
+
+“W-well… I’m sure this is quite obvious by now, but I’m scared to die. However… it’s bound to happen to me in this place sooner than later, isn’t it? I mean… for someone as weak and small as I am, how can I possibly keep avoiding being targeted…?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 11:38 AM</span>
+
+            <div class="chatlog__message " data-message-id="820335120035872799" id="message-820335120035872799">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Sure, it&#39;s an obvious fear. Only fools do not feel this fear.</em>
+
+<em>Only your average Joe would live life fearing death but never admit it. But then...</em>
+
+&quot;Only those with a heart of gold, sullied by the dim, misleading light of sweet release will ever admit to fearing it. One often only opens up to others about it when they&#39;ve had a waltz with death, no matter how long or passionate. And as such, I can tell you this.&quot; <em>Slowly, Eanna went to hold both of Akari&#39;s hands into her, making sure to have their gazes meet.</em>
+
+&quot;I am terrified of death. The simple thought of leaving this world with an unfinished, unteachable craft repulses me to such lengths that I at times feel compelled to jump head first into danger as if to slay death itself when it mocks me.&quot;
+
+<em>After solemnly speaking these words, Eanna finally smiled once more.</em>
+&quot;I doubt I am much of a standard of greatness. Far from it. I live as I please, on my own account, and more often than never I put these selfish desires over those of others : That, at heart, is competition. But... if what scares you is your own weakness, that I can do something about... would you care to hear it?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/2b4b97e08b0a7516421d0be2983a9d33-9B9D9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akari Rosi&#233;r#0000" data-user-id="810641443592732673" style="">Akari Rosi&#233;r</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 01:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="820362983388610601" id="message-820362983388610601">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Initially, Eanna’s admission brought quite the surprise to Akari. She didn’t really think she was scared of <em>anything</em>. After all, she seemed to face those bloodthirsty robots without fear, with full confidence… And when she did, Akari couldn’t stop thinking about how tough and strong she was. She truly and genuinely amazed her.
+
+But at that current moment, while it took a bit of time for her to process her words, she truly understood what she was saying. And really… she found herself respecting her even more. The truth struck her rather hard, and without realizing it, her eyes began to water again, bringing a slight sparkle to the one that was visible.
+
+“N-no, I… I look up to you. I trust you. So please…” Her hands were shaking, but she held onto Eanna’s tighter. “Please tell me... A-all I want is this dreadful feeling to be alleviated, even a little…”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 03:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="820390043113750578" id="message-820390043113750578">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>She had to admit, seeing her cry gave her a little heart squeeze. Eanna didn&#39;t socialize all that much, but she hated the thought of making someone cry. For a good second, she was about to fall apart in apologies. But the sparkle within Akari&#39;s eyes wasn&#39;t a lie.</em>
+
+<em>Her words weren&#39;t lying.</em>
+
+<em>As such, Eanna slowly brought Akari in a gentle hug, continuing to caress her head when she was locked into it.</em>
+
+&quot;Hehe... Barely a few days that we caught wind of each other&#39;s existence and I scored that many points? That&#39;s encouraging.&quot;
+
+&quot;Fine then. I&#39;ll aid you to take arms against adversity. I&#39;ll aid you to master your fear and use it to fight.&quot;
+
+&quot;Akari, would you allow this... imperfect swordswoman to be your teacher?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/2b4b97e08b0a7516421d0be2983a9d33-9B9D9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akari Rosi&#233;r#0000" data-user-id="810641443592732673" style="">Akari Rosi&#233;r</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 04:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="820410066628509756" id="message-820410066628509756">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">The warmth of Eanna’s embrace was so comforting to the troubled girl that she just wished she could indulge in it forever. Unfortunately, life wasn’t that easy, especially not in a place like this, but… perhaps there was a chance it could be made a little better.
+
+She settled into the hug, letting the calming sensation take over as she pondered. The sword, huh…? She wasn’t very confident in her ability to handle them, but wasn’t that what learning was all about? Besides, she had a feeling it <em>would</em> help with her stress and fear; especially if Eanna was the one teaching her.
+
+Akari glanced up at her. Though she was still clearly shaken and teary-eyed, the sparkle in her eyes turned into a fleeting gleam. “If… if you wouldn’t tire of my presence, then please. Perhaps you’re my only hope, s-so I want to try my best. I-I promise!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 04:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="820413035188715530" id="message-820413035188715530">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Believe me, it felt just as comforting to Eanna that Akari didn&#39;t refuse this move. Honestly, the times in which she has hugged someone could be counted on a hand.</em>
+
+<em>Of course, she remained quiet while she was thinking about her proposal. Sure, it&#39;s probably not what she expected out of her time in such a situation : Learning the way of the blade is... certainly a special way to spend your time.</em>
+
+<em>Though, her answer was all she was asking for and more.</em>
+<em>With each word Akari spoke, she could feel it.</em>
+<em>An end to her journey drawing nearer.</em>
+&quot;Then as a master, I promise to draw my very best out to teach you all I know. And I promise to reach perfect swordcraft through this exchange.&quot;
+
+&quot;Let&#39;s work hard, together!&quot;
+<em>...Eanna did laugh a bit awkwardly after that.</em> &quot;W-Well maybe not now but... Whenever we begin.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/2b4b97e08b0a7516421d0be2983a9d33-9B9D9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akari Rosi&#233;r#0000" data-user-id="810641443592732673" style="">Akari Rosi&#233;r</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 05:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="820426053759008780" id="message-820426053759008780">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Ehehe…” After Eanna laughed, Akari couldn’t hold back a small giggle herself. Though in reality it couldn’t have been much longer than a few hours, it felt like quite a while since she last felt a positive emotion.
+
+“Thank you…” With this newfound goal and purpose, she felt a glimmer of hope return to her bruised heart. She felt lighter, as if she might be able to relax a bit now.
+
+“I would have been happy to begin now, but… it’s been a long day. For both of us, I’m sure…” She mumbled, instinctively drawing herself closer into the other girl’s warmth. “I’ve definitely worn myself out…”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Mar-21 06:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="820434443793334362" id="message-820434443793334362">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Just hearing her have a little laugh was enough to put Eanna in a world of happiness. Seems like she actually managed to push darkness away, and without even doing so much as wielding one of her swords. It seems that sometimes, words do wield the same if not more power.</em>
+
+<em>All she could hope is that she could manage to relax now. Of course, she will aid her in this, and without a doubt doing some exercise will have her think of something else, follow a purpose.</em>
+
+<em>Though feeling more of Akari&#39;s weight against her was a bit surprising. Was she that comfortable? She&#39;d have thought her battle-trained frame much less welcoming.</em>
+&quot;Don&#39;t sweat it. I&#39;d indeed say someone needs a bit of rest for now. So then.&quot; <em>Well, if she wanted to remain like this, Eanna was not going to reject the girl. Her hug was maintained, and for now, she watched Akari relax.</em>
+&quot;Think you&#39;re up for a nap or something?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/2ae855bb70d577c1a52cb64d52aa9df4-4250A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asuka Hikaru#0000" data-user-id="810641443592732673" style="">Asuka Hikaru</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Mar-21 01:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="820538257401577523" id="message-820538257401577523">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Screw the description I gave before. That&#39;s voided.</em>
+
+<em>Asuka comes up to Eanna&#39;s trailer, and knocks on the door to hopefully get her attention. With a smile on her face, she leaves the costume here. It&#39;s on a stand so that it doesn&#39;t get dirty. What Eanna will do with the stand...who knows. The costume is more important.</em>
+
+<em>It comes with everything included. Including a prop sword, and a black wig because yes. Asuka went all out.</em>
+
+<em>There&#39;s also a note...</em>
+
+<div class="quote">;)
+</div>&gt; 
+<div class="quote">- Asuka
+</div>
+<em>Soon after, Asuka disappears into nothingness.</em></span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/1000-0FF2E.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/1000-0FF2E.png" alt="Image attachment" title="Image: 1000.png (757.3 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/2b4b97e08b0a7516421d0be2983a9d33-9B9D9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akari Rosi&#233;r#0000" data-user-id="810641443592732673" style="">Akari Rosi&#233;r</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Mar-21 01:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="820547757290029067" id="message-820547757290029067">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">At first, Akari only yawned in response to Eanna. She a bit selfishly got more comfortable, her body lazily rested against the swordswoman’s own. “Possibly… I think it would be wise to rest before the trial, at least.” She said softly. From what she experienced last time, the trial look a whole nother level of strength to get through; a kind Akari knew she hadn’t possessed yet.
+
+“I wanna… stay with you,” She closed her eyes, and within moments she was on the threshold of unconsciousness. However, the sound of someone knocking on the door quickly pulled her out of that, and her eyes fluttered open.
+
+“Mm? Do you have another visitor…?” She questioned sleepily.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Mar-21 05:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="820583427631218729" id="message-820583427631218729">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Honestly, Eanna had to admit that Akari was very, very cute at this moment. She herself did not want to let her go. Call it whatever you want, she thought of it as a protective instinct.</em>
+
+&quot;Alright... I don&#39;t mind that at all. Let&#39;s-&quot; <em>She then heard the knock at the door. Strange timing that, but if it is what she thinks it is, she is not going to complain any time soon.</em>
+
+&quot;Hmm, I think I know what it&#39;s for. Go on, Akari, make yourself comfortable. I&#39;ll be just a minute, alright..?&quot;
+<em>Slowly, she let go of the smaller girl, letting her body weight drift down slowly to the bed. Giving her a last headpat, she went and opened the door to discover what she&#39;d been hoping for.</em>
+
+<em>Honestly she could have been staring at this costume forever. It was very different from the upbeat colours of blue red and white, but this gave off vibes that she herself admitted hit closer to home for a swordsman.</em>
+
+<em>She even went to touch it, and discovered a surprising kinship in texture and therefore materials to her original outfit. Truly, Asuka went all out on this. Eanna&#39;d have to pay her back in kind.</em>
+
+<em>She&#39;ll try it on later though. For now, there is a drowsy Akari in need of attention. So she brought both the costume and stand in and- is that a sword!?</em>
+
+<em>Now she could hardly stop herself from giggling excitedly. She did not want to pull Akari from her sleep-like state but it was tempting to just yell out her happiness at that additional prop. The wig was the one thing she wasn&#39;t sure what to think of, but the rest was sensational.</em>
+
+<em>Bringing the costume in, she let out a quiet sigh, out of relief and contempt, then gave the bed a look to check on her newly proclaimed student.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/2b4b97e08b0a7516421d0be2983a9d33-9B9D9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akari Rosi&#233;r#0000" data-user-id="810641443592732673" style="">Akari Rosi&#233;r</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Mar-21 09:49 AM</span>
+
+            <div class="chatlog__message " data-message-id="820654760092237885" id="message-820654760092237885">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Though still very tired, Akari slowly managed to sit up straight, rubbing at her eye as she did. She looked on a bit cautiously, but she couldn’t help her on curiosity at whatever might be waiting behind the door.
+
+What she <em>hadn’t</em> been expecting to see was the fancy-looking costume and prop, but… it was more of a welcome sight than most possibilities. With her extensive knowledge on fashion and the industry, she was able to tell with a single glance that the costume was of high quality. Not only that, but she thought she recognized it from somewhere…
+
+“What’s this? Were your clothes replaced already?” She said that, but the difference was a bit much to simply refer to it was a replacement. There was something more going on here, and Akari smiled lightly to herself as she began imagining a few things. “How fitting for you. I can already picture how cool you’ll look in it, hehe…”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Mar-21 01:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="820712560458072126" id="message-820712560458072126">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Yeah... Asuka already gave me what I could guess is a cosplay specialized for myself! Sucks I don&#39;t watch a lotta shows... I woulda recognized who wears this, surely.&quot;
+
+<em>She did laugh it off : This was quite the timing, again. She could hardly believe it herself : The trial was getting near, and Asuka managed in the nick of time to give her this sensational costume.</em>
+<em>She surely will cherish it for a very, very lengthy amount of time, that you may not doubt.</em>
+
+<em>That said, she&#39;ll try it on later.</em>
+<em>For now, she slid back on her bed and sat down next to Akari, her cheeks unable not to redden at the compliment.</em>
+&quot;D-Dawwww... I dunno about that just yet, I still gotta try it on..! But I will after we catch a break. Guess we&#39;ll see then. That said..!&quot;
+
+<em>She leaned back, laying down in her bed and glancing up to Akari with only one open eye, the one on her side.</em>
+&quot;Ya ain&#39;t gonna sleep while sitting up.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/2b4b97e08b0a7516421d0be2983a9d33-9B9D9.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akari Rosi&#233;r#0000" data-user-id="810641443592732673" style="">Akari Rosi&#233;r</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Mar-21 02:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="820727340572344321" id="message-820727340572344321">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">A light blush also tinted her own cheeks as she watched Eanna lay down. It had been surprisingly easy to forget her own weariness in the last few minutes, but when reminded of the undeniable comfort of the bed, she found herself rather eager again.
+
+“I-I suppose you’re right,” She let out a breath before letting her body fall against the warm sheets beside the swordswoman. At this point, it would likely be easy to fall asleep again, although… not if the two of them weren’t a bit closer. And so she cuddled up to her, the feeling quickly bringing her a peaceful sensation that she knew she could start getting used to.
+
+Without another word, her eyes slowly shut. It was almost funny how much better she felt in comparison to the emotional wreck she was when she first entered the trailer. That was simply the effect Eanna and her motivation had on her.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/fd83f8901f0f39c784eb58fd0eb21058-E24B4.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Eanna Wisteria#0000" data-user-id="810641443592732673" style="">Eanna Wisteria</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">14-Mar-21 04:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="820749651312377886" id="message-820749651312377886">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Eanna let the girl snuggle up to her, both her arms thrown up, hands under her head.</em>
+
+<em>She couldn&#39;t prevent herself from letting out a quiet chuckle as she searched for her warmth, finally moving and pulling the sheets over them. Slowly, Eanna shifted on the side, and threw an arm around Akari. Shifting over to the side to face her, she pulled Akari close, and closed her eyes.</em>
+
+<em>The trial will take place as they wake up.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/f8a3c3416c60b5d6fc26620e568e2e1b-67E66.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ewi#4524" data-user-id="211157283768369153" style="color: rgb(26,188,156)">Eanna Wisteria [Ewi]</span>
+
+
+        <span class="chatlog__timestamp">14-Mar-21 05:27 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="820770136746360883" id="message-820770136746360883">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://cdn.discordapp.com/attachments/810323783978188800/820538257129472040/1000.png">https://cdn.discordapp.com/attachments/810323783978188800/820538257129472040/1000.png</a>
+<em>To be pinned -- Eanna&#39;s current getup</em></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                                    <div class="chatlog__embed-thumbnail-container">
+                                        <a class="chatlog__embed-thumbnail-link" href="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/1000-0FF2E.png">
+                                            <img class="chatlog__embed-thumbnail" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/1000-0FF2E.png" alt="Thumbnail">
+                                        </a>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">29-Mar-21 07:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="826244050578702396" id="message-826244050578702396">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I&#39;m going to assume Pigeon got here without issue. They opened the door and carefully plonked Eanna down on her bed. It really <em>was</em> like coming home from a night out. Just more depressing.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="826245548956581928" id="message-826245548956581928">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">After making sure she was fine, they left to go sleep in their own trailer</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%94%81%E2%9C%A6%E2%9D%98%E0%BC%BBTrailers%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%81%E2%94%93%20-%20%F0%9F%97%A1eanna-wisteria%F0%9F%97%A1%20%5B810323783978188800%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">03-May-21 07:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="838926047634259989" id="message-838926047634259989">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="quote"><em>This door is locked.</em></div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 43 message(s)</div>
+</div>
+
+</body>
+
+</html>

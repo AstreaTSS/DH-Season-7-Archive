@@ -1,0 +1,2647 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Despair&#39;s Horizon - bank</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/a_965abddd25358436b082455db945621c-13B7C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Despair&#39;s Horizon</div>
+        <div class="preamble__entry">┏✦❘༻Wild West (KG)༺❘✦┓ / bank</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">04-Apr-21 10:41 AM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="828278099996311622" id="message-828278099996311622">
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/71fyMkyaglL-611C4.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/71fyMkyaglL-611C4.png" alt="Image attachment" title="Image: 71fyMkyaglL.png (1.55 MB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">04-Apr-21 11:49 AM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="828295298858090546" id="message-828295298858090546">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The bank. Rather well kept, it houses all the money for the wild west. Unfortunately for you, this town is poor. The bank, through some effort, can be opened with a crowbar. There&#39;s nothing in the vault though.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/53e75a0efa3d8b377038575f8bc6fe24-8FC11.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Royalcat08#6390" data-user-id="721911813632950335" style="">Royalcat08</span>
+
+
+        <span class="chatlog__timestamp">05-Apr-21 01:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="828683650626486333" id="message-828683650626486333">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Here first! Ryu walks into here, he was.... uninmpressed, and unlike a certain thieving OC of mine, he has no care for whatever riches are in here. He checks around a bit, looking for something of interest but he leaves soon.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/36d0bd5515de65cfaf3164e10b694807-73B2A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="nemesis#4091" data-user-id="671486547308183552" style="color: rgb(255,156,253)">&#127881;Marianne &#127881; || Freddy</span>
+
+
+        <span class="chatlog__timestamp">09-Apr-21 05:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="830188862592385065" id="message-830188862592385065">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">It would be cool if a body was here...</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="830188890378731630" id="message-830188890378731630">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((mh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 04:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="833794420084178956" id="message-833794420084178956">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Ha, too bad.</em>
+
+<em>Regardless, Tori was here. Why is a good question... honestly, she was somewhat curious about what was in the vault, but other than that this place didn&#39;t really capture her interests.</em>
+
+<em>She was probably here &#39;just because&#39;, and she was thinking about something, but that&#39;s about it.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 04:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="833797869415694336" id="message-833797869415694336">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Oh shoot i forgot to ask for a ping I’m sorry <img class="emoji " alt="whenthe" title="whenthe" src="https://cdn.discordapp.com/emojis/758395395428188201.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833798525653090335" id="message-833798525653090335">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(The image won’t load and I need it
+(I’m gonna scream</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833798562218377246" id="message-833798562218377246">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Oh- doesn’t matter- fhsicshbfj</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833799249434378280" id="message-833799249434378280">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pigeon ran in, looking hella excited. They skidded to a halt, but was just a bit too late, so they kinda rammed into a table. 
+“Ow-“
+They bounced back instantly though, turning to Tori with a lot of enthusiasm!!
+“Yooo!!! You ‘ere to steal some gold too? I just noticed this place and thought ‘ow cool it’d be to just straight up rob a bank!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="CronchyTurtle#8008" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;833799249434378280&#39;)">
+                    <span class="chatlog__reference-content">
+Pigeon ran in, looking hella excited. They skidded to a halt, but was just a bit too late, so they kinda rammed into a table. 
+“Ow-“
+They bounced back instantly though, turning to Tori with a lot of enthusiasm!!
+“Yooo!!! You ‘ere to steal some gold too? I just noticed this place and thought ‘ow cool it’d be to just straight up rob a bank!”                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 04:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="833802479975530547" id="message-833802479975530547">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(e
+
+<em>Tori, admittedly, was only slightly phased by Pigeon rushing in. It was a surprise, but it could have been worse. She chuckled as Pigeon got back to her feet.</em>
+&quot;...are you alright?&quot; <em>Standard question.</em> &quot;And not exactly. I&#39;m not here for any particular reason... do you think there is gold in here? Knowing that bear, it could be anything.&quot;
+<em>Ah, as cold as ever.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Sonic49#7171" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;833802479975530547&#39;)">
+                    <span class="chatlog__reference-content">
+(e
+
+<em>Tori, admittedly, was only slightly phased by Pigeon rushing in. It was a surprise, but it could have been worse. She chuckled as Pigeon got back to her feet.</em>
+&quot;...are you alright?&quot; <em>Standard question.</em> &quot;And not exactly. I&#39;m not here for any particular reason... do you think there is gold in here? Knowing that bear, it could be anything.&quot;
+<em>Ah, as cold as ever.</em>                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 04:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="833803559685718016" id="message-833803559685718016">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">They shot a finger gun at Tori
+“Never been better my dear! And I’m... I’d say 87% sure there’s gold in there. 6% on it being a secret entrance or base or something, and then 11% on it being empty. I wanna check it out even if there ain’t anythin’ in there though! You know if there’s like a uhh... big pipe around?”
+They started looking around the room, opening any drawers they could find and looking under all the furniture</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="CronchyTurtle#8008" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;833803559685718016&#39;)">
+                    <span class="chatlog__reference-content">
+They shot a finger gun at Tori
+“Never been better my dear! And I’m... I’d say 87% sure there’s gold in there. 6% on it being a secret entrance or base or something, and then 11% on it being empty. I wanna check it out even if there ain’t anythin’ in there though! You know if there’s like a uhh... big pipe around?”
+They started looking around the room, opening any drawers they could find and looking under all the furniture                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 04:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="833805305007702087" id="message-833805305007702087">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>She simply sighed as Pigeon shot at her (out of context, this sounds weird). Seems like Pigeon hadn&#39;t changed a bit.</em>
+&quot;Oh really? And what makes you so sure about those statistics?&quot; <em>I&#39;m unsure myself if she&#39;s genuinely asking or just taunting, but it&#39;s probably a mix of both.</em> &quot;And a big pipe? Not exactly. I suppose if you found that or a crow bar, you could open it, but without those objects... hmmm, I wonder if ramming into it would work...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Sonic49#7171" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;833805305007702087&#39;)">
+                    <span class="chatlog__reference-content">
+<em>She simply sighed as Pigeon shot at her (out of context, this sounds weird). Seems like Pigeon hadn&#39;t changed a bit.</em>
+&quot;Oh really? And what makes you so sure about those statistics?&quot; <em>I&#39;m unsure myself if she&#39;s genuinely asking or just taunting, but it&#39;s probably a mix of both.</em> &quot;And a big pipe? Not exactly. I suppose if you found that or a crow bar, you could open it, but without those objects... hmmm, I wonder if ramming into it would work...&quot;                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 04:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="833807129755385967" id="message-833807129755385967">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">They stopped searching for a second and turned back to Victoria to shoot more finger guns, but this time Pigeon shot them about three times in a row, just for emphasis.
+“Gut feelin’”
+<s>Add the numbers up</s>
+
+“Wonder if we could just smash one a these desks into it...”
+No more searching for stuff. Pigeon now moved behind a desk and pushed against it to see if it would move, and I’m saying it does. The sound of it scraping across the floor was terrible-</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="CronchyTurtle#8008" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;833807129755385967&#39;)">
+                    <span class="chatlog__reference-content">
+They stopped searching for a second and turned back to Victoria to shoot more finger guns, but this time Pigeon shot them about three times in a row, just for emphasis.
+“Gut feelin’”
+<s>Add the numbers up</s>
+
+“Wonder if we could just smash one a these desks into it...”
+No more searching for stuff. Pigeon now moved behind a desk and pushed against it to see if it would move, and I’m saying it does. The sound of it scraping across the floor was terrible-                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 04:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="833808195028779058" id="message-833808195028779058">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><s>dont worry i did</s>
+&quot;...&quot; <em>Alright, fair enough. She just sighed again.</em> &quot;...then what&#39;s with the finger guns?&quot;
+
+&quot;...that seems to be making quite a bit of noise.&quot; <em>Well, duh.</em> &quot;Regardless, if you threw or pushed it fast enough, it should work. I could do it if you wish... but I have a feeling you would like to break into the bank on your own instead.&quot; <em>Because that would be fun.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833808402215337984" id="message-833808402215337984">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(im in a lazy mood i apologize</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 04:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="833809065154707476" id="message-833809065154707476">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(mood</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833809144309088268" id="message-833809144309088268">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(I’m also making a shit power point for you &lt;3</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/755497698563457024-D9F52.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+            <div class="chatlog__message " data-message-id="833809355363188737" id="message-833809355363188737">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(NO BEAONT WOCIS</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833809432647041084" id="message-833809432647041084">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(INWILL DESYPRU THE EARTH IM WSRNING YOU</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833809442859646976" id="message-833809442859646976">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(SIR</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833809474866774016" id="message-833809474866774016">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Thank you</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Sonic49#7171" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;833808195028779058&#39;)">
+                    <span class="chatlog__reference-content">
+<s>dont worry i did</s>
+&quot;...&quot; <em>Alright, fair enough. She just sighed again.</em> &quot;...then what&#39;s with the finger guns?&quot;
+
+&quot;...that seems to be making quite a bit of noise.&quot; <em>Well, duh.</em> &quot;Regardless, if you threw or pushed it fast enough, it should work. I could do it if you wish... but I have a feeling you would like to break into the bank on your own instead.&quot; <em>Because that would be fun.</em>                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 05:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="833810405331304449" id="message-833810405331304449">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“‘Onestly I just think they’re neat-“
+<em>pew pew</em>
+
+“Nahhhh, the more the merrier when it comes to a good ol’ bank heist! Plus more pushin’ means more force or whatever. I dunno, I failed my biology exam”
+They scooted over to one side of the desk to make room for Tori &lt;3</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 05:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="833811071667011654" id="message-833811071667011654">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(playing uno will be a bit busy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="CronchyTurtle#8008" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;833810405331304449&#39;)">
+                    <span class="chatlog__reference-content">
+“‘Onestly I just think they’re neat-“
+<em>pew pew</em>
+
+“Nahhhh, the more the merrier when it comes to a good ol’ bank heist! Plus more pushin’ means more force or whatever. I dunno, I failed my biology exam”
+They scooted over to one side of the desk to make room for Tori &lt;3                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 05:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="833815040859439184" id="message-833815040859439184">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Sigh.</em>
+&quot;I suppose that would be fair enough.&quot;
+
+&quot;Well, it&#39;s more physics, but I suppose you are still correct.&quot;
+<em>Not like it matters. Tori scoots over and starts pushing with a decent amount of force. The combination of the two breaks open the bank, revealing...</em>
+&quot;...nothing.&quot;</span>
+
+                                <span class="chatlog__edited-timestamp" title="19-Apr-21 05:23 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Sonic49#7171" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;833815040859439184&#39;)">
+                    <span class="chatlog__reference-content">
+<em>Sigh.</em>
+&quot;I suppose that would be fair enough.&quot;
+
+&quot;Well, it&#39;s more physics, but I suppose you are still correct.&quot;
+<em>Not like it matters. Tori scoots over and starts pushing with a decent amount of force. The combination of the two breaks open the bank, revealing...</em>
+&quot;...nothing.&quot;                    </span>
+
+                        <span class="chatlog__reference-edited-timestamp" title="19-Apr-21 05:23 PM">(edited)</span>
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 05:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="833816616071987220" id="message-833816616071987220">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...Ah.”
+Pigeon stepped inside to look around, making sure there wasn’t anything hiding anywhere
+“Well ain’t that a bit shit. That’s all my plans ruined...”
+They kicked a wall of the vault because they could and walked out with their hands in their pockets
+“Guess that 21% was correct after all, ey? Thanks for ‘elping me though” c:</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="CronchyTurtle#8008" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;833816616071987220&#39;)">
+                    <span class="chatlog__reference-content">
+“...Ah.”
+Pigeon stepped inside to look around, making sure there wasn’t anything hiding anywhere
+“Well ain’t that a bit shit. That’s all my plans ruined...”
+They kicked a wall of the vault because they could and walked out with their hands in their pockets
+“Guess that 21% was correct after all, ey? Thanks for ‘elping me though” c:                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 05:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="833818003425722398" id="message-833818003425722398">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;...it is unlikely that we could have used the gold at any rate... there would be no one to sell it to.&quot; <em>And who knows about if they&#39;ll escape.</em>
+<em>Tori simply walked out, pushing back the table to where it was. No need to keep it there.</em>
+&quot;That 21% out of 103% was incorrect, yes.&quot; <em>Dang Tori—</em> &quot;But no problem. It was worth finding if that bear truly hid something valuable, however unlikely it seemed. I do wonder if something was meant to be kept here... it does look rather empty right now.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 05:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="833824134898909194" id="message-833824134898909194">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(NOOOO STUPID INTERNET NOT SENDING MY MESSAGE AND THEN DELETING IT</span>
+
+                                <span class="chatlog__edited-timestamp" title="19-Apr-21 05:59 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833824197867864086" id="message-833824197867864086">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(I’m so angy rn my god</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833824239592276038" id="message-833824239592276038">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(&gt;:c</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Sonic49#7171" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;833818003425722398&#39;)">
+                    <span class="chatlog__reference-content">
+&quot;...it is unlikely that we could have used the gold at any rate... there would be no one to sell it to.&quot; <em>And who knows about if they&#39;ll escape.</em>
+<em>Tori simply walked out, pushing back the table to where it was. No need to keep it there.</em>
+&quot;That 21% out of 103% was incorrect, yes.&quot; <em>Dang Tori—</em> &quot;But no problem. It was worth finding if that bear truly hid something valuable, however unlikely it seemed. I do wonder if something was meant to be kept here... it does look rather empty right now.&quot;                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 06:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="833824892352462888" id="message-833824892352462888">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">This is a cutdown version of what I wrote smh:
+“Well we coulda sold it when we get out. Was thinking about getting meself a new phone...”
+
+“Wait- 103-“
+Pigeon started counting on their fingers
+“Oh, well you see, I’ve decided that we’ve actually uncovered a mathematical anomaly. Only place on the earth with 103% insteada 100%. Excellent find on our part”
+“Bet the bear keeps ‘is weird shit in ‘ere when we ain’t around... ‘e looks like a kinky little fucker...”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833825024069992529" id="message-833825024069992529">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Might go to sleep now tho or smth cuz exams in the morning sob <img class="emoji " alt="Bookycri" title="Bookycri" src="https://cdn.discordapp.com/emojis/763796949169995776.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">19-Apr-21 06:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="833828702571462676" id="message-833828702571462676">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(fair</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="833829457709367317" id="message-833829457709367317">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;...suggesting we get out in the first place. And if there was any considerable amount of gold, I am more than certain you could get more than a phone.&quot; <em>How blunt.</em>
+
+<em>She chuckled at Pigeon trying to cover up his math mistake.</em> &quot;Yes, what a unique find. There must be something special about this place, then, although it seems to be hidden from us.&quot; <em>She&#39;s playing along.</em>
+&quot;...kinky? Do you think—&quot; <em>She quickly stopped herself before going any further and coughed.</em> &quot;He could be keeping something here, yes. Although he would have to be diligent... if a student came in here while he was not watching, it would be trivial to break into here and steal his possessions.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Sonic49#7171" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;833829457709367317&#39;)">
+                    <span class="chatlog__reference-content">
+&quot;...suggesting we get out in the first place. And if there was any considerable amount of gold, I am more than certain you could get more than a phone.&quot; <em>How blunt.</em>
+
+<em>She chuckled at Pigeon trying to cover up his math mistake.</em> &quot;Yes, what a unique find. There must be something special about this place, then, although it seems to be hidden from us.&quot; <em>She&#39;s playing along.</em>
+&quot;...kinky? Do you think—&quot; <em>She quickly stopped herself before going any further and coughed.</em> &quot;He could be keeping something here, yes. Although he would have to be diligent... if a student came in here while he was not watching, it would be trivial to break into here and steal his possessions.&quot;                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">20-Apr-21 03:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="834143118562426940" id="message-834143118562426940">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“.....6 phones. For when I break ‘em or drop ‘em down that grate vent thingy in the floor on the streets.”
+
+“Wonder if there’s like, some secret ‘ole in the ground...”
+Pigeon licked their teeth and walked back into the vault, randomly stomping on the ground to try find something.
+
+“Yeah, I totally think” They stopped stomping for a second and looked up at Tori, grinning</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">20-Apr-21 03:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="834148508339666954" id="message-834148508339666954">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">=remind 2h respond</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/2fa57b425415134d4f8b279174131ad6-66B12.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="YAGPDB.xyz#8760" data-user-id="204255221017214977" style="color: rgb(255,94,0)">YAGPDB.xyz</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Apr-21 03:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="834148509204349018" id="message-834148509204349018">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Set a reminder in 2 hours from now (20 Apr 21 21:28 UTC)
+View reminders with the reminders command</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">20-Apr-21 03:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="834148530519801896" id="message-834148530519801896">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(im about to go out so—</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/2fa57b425415134d4f8b279174131ad6-66B12.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="YAGPDB.xyz#8760" data-user-id="204255221017214977" style="color: rgb(255,94,0)">YAGPDB.xyz</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Apr-21 05:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="834178729038577755" id="message-834178729038577755">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Reminder</strong> <span class="mention" title="Sonic49#7171">@Snoic Senpai~</span>: respond</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">20-Apr-21 05:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="834185891948789770" id="message-834185891948789770">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(ah ok im back</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="CronchyTurtle#8008" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;834143118562426940&#39;)">
+                    <span class="chatlog__reference-content">
+“.....6 phones. For when I break ‘em or drop ‘em down that grate vent thingy in the floor on the streets.”
+
+“Wonder if there’s like, some secret ‘ole in the ground...”
+Pigeon licked their teeth and walked back into the vault, randomly stomping on the ground to try find something.
+
+“Yeah, I totally think” They stopped stomping for a second and looked up at Tori, grinning                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">20-Apr-21 06:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="834186965125431337" id="message-834186965125431337">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;...you break yours that often? That is... quite impressive. A rather bulky but protective case might work well for you, rather than wasting money on 6 phones. Regardless, I am certainly you could spend the money in a better manner.&quot;
+
+&quot;It could be possible that Monokuma put something in the ground, but... part of me doubts that. It seems more likely that this is a barren room, with nothing to find.&quot; <em>Party pooper.</em>
+
+<em>As for that last part, she just... sighed again. Pigeon was making her sigh a lot, huh?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">20-Apr-21 06:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="834192324380327976" id="message-834192324380327976">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">=remind 18h respond and ik its a lot of hours but school <img class="emoji " alt="Bookycri" title="Bookycri" src="https://cdn.discordapp.com/emojis/763796949169995776.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/755497698563457024-D9F52.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/2fa57b425415134d4f8b279174131ad6-66B12.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="YAGPDB.xyz#8760" data-user-id="204255221017214977" style="color: rgb(255,94,0)">YAGPDB.xyz</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Apr-21 06:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="834192325361795072" id="message-834192325361795072">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Set a reminder in 18 hours from now (21 Apr 21 16:22 UTC)
+View reminders with the reminders command</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/2fa57b425415134d4f8b279174131ad6-66B12.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="YAGPDB.xyz#8760" data-user-id="204255221017214977" style="color: rgb(255,94,0)">YAGPDB.xyz</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Apr-21 12:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="834464129284046868" id="message-834464129284046868">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Reminder</strong> <span class="mention" title="CronchyTurtle#8008">@Pidgy | Cronch</span>: respond and ik its a lot of hours but school :Bookycri:</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">21-Apr-21 05:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="834538542574075914" id="message-834538542574075914">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(My excuse is I had tutoring after 2 exams, and then passed out, and I’ve just woken up but I’m about to pass out again</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/755497698563457024-D9F52.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/c0f0331d4eb48dcaee7c8e371669503b-B3980.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(137,207,240)">4MushroomSoap</span>
+
+
+        <span class="chatlog__timestamp">21-Apr-21 05:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="834546547202326539" id="message-834546547202326539">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Cronch</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="834546586327580672" id="message-834546586327580672">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<strong>Sleep. Now</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Sonic49#7171" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;834186965125431337&#39;)">
+                    <span class="chatlog__reference-content">
+&quot;...you break yours that often? That is... quite impressive. A rather bulky but protective case might work well for you, rather than wasting money on 6 phones. Regardless, I am certainly you could spend the money in a better manner.&quot;
+
+&quot;It could be possible that Monokuma put something in the ground, but... part of me doubts that. It seems more likely that this is a barren room, with nothing to find.&quot; <em>Party pooper.</em>
+
+<em>As for that last part, she just... sighed again. Pigeon was making her sigh a lot, huh?</em>                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 05:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="834908930765094923" id="message-834908930765094923">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pigeon looked at Tori with a blank stare for a while, trying to think of responsible ways to spend money. What would a mature adult do? Something about a mortgage? Maybe taxes? The fuck even <em>is</em> a mortgage? How do you pay taxes? Pigeon has no ideas. This is why the education system sucks.
+“....A bouncy castle.”
+Yes. Mature.
+
+“That’s a bit of a dick move. Like, give us a bit o’ fun once in a while, jeez. This’s a death game, not fuckin’ prison...”
+They stopped stomping and just looked down in disappointment</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="CronchyTurtle#8008" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;834908930765094923&#39;)">
+                    <span class="chatlog__reference-content">
+Pigeon looked at Tori with a blank stare for a while, trying to think of responsible ways to spend money. What would a mature adult do? Something about a mortgage? Maybe taxes? The fuck even <em>is</em> a mortgage? How do you pay taxes? Pigeon has no ideas. This is why the education system sucks.
+“....A bouncy castle.”
+Yes. Mature.
+
+“That’s a bit of a dick move. Like, give us a bit o’ fun once in a while, jeez. This’s a death game, not fuckin’ prison...”
+They stopped stomping and just looked down in disappointment                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="834918463600328766" id="message-834918463600328766">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>...</em>
+<em>You know what, that was slightly better than a phone.</em>
+&quot;...I suppose a bouncy castle could at least be used for the entertainment of multiple people... but speaking of money, do you not have enough from your career as a musician? I would have thought you would have made quite a decent bit from that job.&quot; <em>Although she can&#39;t say for certain that they would.</em>
+
+&quot;...to be fair, one may consider a death game as a type of prison with a game involved with it.&quot;
+<em>I could make Tori go on about the whole &#39;Killing Games&#39; concept, but for now I won&#39;t.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Sonic49#7171" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;834918463600328766&#39;)">
+                    <span class="chatlog__reference-content">
+<em>...</em>
+<em>You know what, that was slightly better than a phone.</em>
+&quot;...I suppose a bouncy castle could at least be used for the entertainment of multiple people... but speaking of money, do you not have enough from your career as a musician? I would have thought you would have made quite a decent bit from that job.&quot; <em>Although she can&#39;t say for certain that they would.</em>
+
+&quot;...to be fair, one may consider a death game as a type of prison with a game involved with it.&quot;
+<em>I could make Tori go on about the whole &#39;Killing Games&#39; concept, but for now I won&#39;t.</em>                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="834920828125839420" id="message-834920828125839420">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Pigeon smirked playfully
+“I mean, you can probably tell from what I just said that I ain’t trusted with most o’ the money. I’d spend it all on like... giant unicorn pool rings. Literally all of it. And then we’d have to get rid of ‘em all. I do get money from it though! But after food, rent, new phones, and some, uhh... other shit, my allowance is pretty much all gone. My darlin’ friend ‘as been puttin’ loads into another account for ‘when I can be trusted’ though. That time apparently ain’t now ‘owever, and I gotta fully agree with ‘em. So it’s there! I just ain’t gettin’ it yet so I don’t buy a unicorn ring factory” 
+
+“.....Huh, guess you’re right... You always seemed pretty smart” :)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="834921044527153163" id="message-834921044527153163">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(...i want to see a unicorn ring factory</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="CronchyTurtle#8008" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;834920828125839420&#39;)">
+                    <span class="chatlog__reference-content">
+Pigeon smirked playfully
+“I mean, you can probably tell from what I just said that I ain’t trusted with most o’ the money. I’d spend it all on like... giant unicorn pool rings. Literally all of it. And then we’d have to get rid of ‘em all. I do get money from it though! But after food, rent, new phones, and some, uhh... other shit, my allowance is pretty much all gone. My darlin’ friend ‘as been puttin’ loads into another account for ‘when I can be trusted’ though. That time apparently ain’t now ‘owever, and I gotta fully agree with ‘em. So it’s there! I just ain’t gettin’ it yet so I don’t buy a unicorn ring factory” 
+
+“.....Huh, guess you’re right... You always seemed pretty smart” :)                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="834922319675129896" id="message-834922319675129896">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Huh. Well...</em>
+&quot;Fair enough. You do seem rather... impulsive when it comes to thinks you wish to get. Your friend is doing quite a service if that is the case... that money will be no doubt useful in the future.&quot;
+&quot;...but even I&#39;ll admit I&#39;m curious about how a unicorn ring factory would be like.&quot; <em>Look, I have to slide that in somehow.</em>
+
+&quot;Thank you.&quot; <em>There was no sense of blushing or embarrassment, just a simple reply. Honestly, it almost seemed like she expected things like that.</em>
+
+<em>But regardless...</em> &quot;I do believe it is getting rather late, though. I suppose we should leave and go to our beds soon...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="Sonic49#7171" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;834922319675129896&#39;)">
+                    <span class="chatlog__reference-content">
+<em>Huh. Well...</em>
+&quot;Fair enough. You do seem rather... impulsive when it comes to thinks you wish to get. Your friend is doing quite a service if that is the case... that money will be no doubt useful in the future.&quot;
+&quot;...but even I&#39;ll admit I&#39;m curious about how a unicorn ring factory would be like.&quot; <em>Look, I have to slide that in somehow.</em>
+
+&quot;Thank you.&quot; <em>There was no sense of blushing or embarrassment, just a simple reply. Honestly, it almost seemed like she expected things like that.</em>
+
+<em>But regardless...</em> &quot;I do believe it is getting rather late, though. I suppose we should leave and go to our beds soon...&quot;                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="834924424976793620" id="message-834924424976793620">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Their grin grew 
+“The second I get my ‘ands on that beautiful inflatable unicorn factory, I’ll show ya” :))))
+
+Pigeon did a casual salute kinda thing
+“You’re welcome darlin’”
+<s>Casual complements with no weird responses are so nice omg gnskcjsb</s>
+
+“Hmm... Guess you might be right... I ain’t slept in, what? 4 ‘ours? I’m pretty much dying at this point”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="834925203960234046" id="message-834925203960234046">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(i better see a unicorn ring factory soon cronch</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="834925233256923147" id="message-834925233256923147">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(this is a demand</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="834925376500531291" id="message-834925376500531291">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">( <img class="emoji " alt="WAH" title="WAH" src="https://cdn.discordapp.com/emojis/804401405200564245.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="834925405860790322" id="message-834925405860790322">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Well if you let pigeon live- :)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="834925472155828264" id="message-834925472155828264">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(ah dang i need to change my murder plans</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="834925523082936350" id="message-834925523082936350">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Yeah you better <img class="emoji " alt="gun" title="gun" src="https://cdn.discordapp.com/emojis/677634274014527495.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="834925690150715412" id="message-834925690150715412">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Also I have 3 minutes till I’m forcefully removed from discord so I won’t respond tonight sob</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+        <div class="chatlog__reference-symbol">
+        </div>
+        <div class="chatlog__reference">
+                <img class="chatlog__reference-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+                <span class="chatlog__reference-name" title="CronchyTurtle#8008" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+                <a class="chatlog__reference-link" href="#" onclick="scrollToMessage(event, &#39;834924424976793620&#39;)">
+                    <span class="chatlog__reference-content">
+Their grin grew 
+“The second I get my ‘ands on that beautiful inflatable unicorn factory, I’ll show ya” :))))
+
+Pigeon did a casual salute kinda thing
+“You’re welcome darlin’”
+<s>Casual complements with no weird responses are so nice omg gnskcjsb</s>
+
+“Hmm... Guess you might be right... I ain’t slept in, what? 4 ‘ours? I’m pretty much dying at this point”                    </span>
+
+                </a>
+        </div>
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="834925861790679121" id="message-834925861790679121">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>ALRIGHT TIME FOR &#39;WRAPPING THINGS UP&#39; RP—</em>
+
+<em>She chuckled.</em> &quot;...sounds good.&quot; <em>Not much more to say other than she was looking forward to it, if it happened.</em>
+
+<em>Not much to say other than she smiled... in her usual not-that-much way. She&#39;s weird.</em>
+
+&quot;...that doesn&#39;t sound bad, but I suppose it is bad for you. I suppose I should leave then... good night.&quot;
+<em>And she left.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="834926039129260082" id="message-834926039129260082">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">WOO I CAN RESPOND PIGEON NODDED AND THEN ALSO LEFT SLEEPY TIME</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/755497698563457024-D9F52.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/a69bce22292fa1837353cef43f771883-6300C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="ImReallyScrewed#8206" data-user-id="578326021443420160" style="color: rgb(255,0,0)">Kev | Monokuma</span>
+
+
+        <span class="chatlog__timestamp">22-Apr-21 06:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="834926537769091092" id="message-834926537769091092">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(CRONCH it&#39;s midnight</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">23-Apr-21 03:07 AM</span>
+
+            <div class="chatlog__message " data-message-id="835049311548211201" id="message-835049311548211201">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(EXACTLY</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="835049558345383946" id="message-835049558345383946">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(I went to sleep at 11:58 I’m so proud of myself, that’s 2 minutes before midnight, meaning I went to bed early, I’m such a responsible exam taker</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/2fa57b425415134d4f8b279174131ad6-66B12.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="YAGPDB.xyz#8760" data-user-id="204255221017214977" style="color: rgb(255,94,0)">YAGPDB.xyz</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">23-Apr-21 03:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="835049558668083210" id="message-835049558668083210">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                            </div>
+
+
+                                <div class="chatlog__embed-footer">
+
+                                    <span class="chatlog__embed-footer-text">
+Above time (11:58 BST) in your local time
+ • 
+23-Apr-21 06:58 AM                                    </span>
+                                </div>
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/9b25de3848ef703ee1f34ecafe4be697-E95D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CagiestMonkey8#9368" data-user-id="422447246060158996" style="color: rgb(255,0,0)">Cagiest | Alice Betterman</span>
+
+
+        <span class="chatlog__timestamp">23-Apr-21 11:31 AM</span>
+
+            <div class="chatlog__message " data-message-id="835176067831562249" id="message-835176067831562249">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(.... midnight isn’t early</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/c0f0331d4eb48dcaee7c8e371669503b-B3980.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(137,207,240)">4MushroomSoap</span>
+
+
+        <span class="chatlog__timestamp">23-Apr-21 12:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="835186776632721449" id="message-835186776632721449">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Honestly I have to be agreeing with cronch when I say going to bed at midnight is <em>early</em>....
+
+(However I&#39;m not a good example and have a reason for sleeping funky so Cronch sleep earlier you have exams</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/e0faeec124b8d4abdad4c7538738a6b0-0D27C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Snoic Senpai~</span>
+
+
+        <span class="chatlog__timestamp">23-Apr-21 12:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="835187119869788202" id="message-835187119869788202">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(to me, its not early, but its not that late
+(i could see how someone could say its early</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Despair%27s%20Horizon%20-%20%E2%94%8F%E2%9C%A6%E2%9D%98%E0%BC%BBWild%20West%20%28KG%29%E0%BC%BA%E2%9D%98%E2%9C%A6%E2%94%93%20-%20bank%20%5B826241217100644352%5D.html_Files/3373f4f36a1eb20f51ed29920641ce3e-0E459.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="CronchyTurtle#8008" data-user-id="486181655837671425" style="color: rgb(255,156,253)">Pidgy | Cronch</span>
+
+
+        <span class="chatlog__timestamp">24-Apr-21 04:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="835430209833664512" id="message-835430209833664512">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(I mean I <em>didnt</em> go to bed at midnight, making it earlier than usual, making me responsible <img class="emoji " alt="ibuki" title="ibuki" src="https://cdn.discordapp.com/emojis/593661117297983488.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 70 message(s)</div>
+</div>
+
+</body>
+
+</html>
