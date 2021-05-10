@@ -11,6 +11,6 @@ All Categories:
 * [Carnival Set](https://sonic4999.github.io/DH-Season-7-Archive/CarnivalSet/CarnivalSet)
 * [Wild West](https://sonic4999.github.io/DH-Season-7-Archive/WildWest/WildWest)
 * [Temple Ruins](https://sonic4999.github.io/DH-Season-7-Archive/TempleRuins/TempleRuins)
-* Labyrinth - to be archived
+* [Labyrinth](https://sonic4999.github.io/DH-Season-7-Archive/Labyrinth/Labyrinth)
 * [Simulations](https://sonic4999.github.io/DH-Season-7-Archive/Simulations/Simulations)
 * [Prologue - Hope's Peak](https://sonic4999.github.io/DH-Season-7-Archive/Prologue/Prologue)
