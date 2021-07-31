@@ -4,13 +4,13 @@
 
 All Categories:
 
-* [Trailers](https://sonic4999.github.io/DH-Season-7-Archive/Trailers/Trailers)
-* [Film Studio](https://sonic4999.github.io/DH-Season-7-Archive/FilmStudio/FilmStudio)
-* [School Set](https://sonic4999.github.io/DH-Season-7-Archive/SchoolSet/SchoolSet)
-* [Lake Set](https://sonic4999.github.io/DH-Season-7-Archive/LakeSet/LakeSet)
-* [Carnival Set](https://sonic4999.github.io/DH-Season-7-Archive/CarnivalSet/CarnivalSet)
-* [Wild West](https://sonic4999.github.io/DH-Season-7-Archive/WildWest/WildWest)
-* [Temple Ruins](https://sonic4999.github.io/DH-Season-7-Archive/TempleRuins/TempleRuins)
-* [Labyrinth](https://sonic4999.github.io/DH-Season-7-Archive/Labyrinth/Labyrinth)
-* [Simulations](https://sonic4999.github.io/DH-Season-7-Archive/Simulations/Simulations)
-* [Prologue - Hope's Peak](https://sonic4999.github.io/DH-Season-7-Archive/Prologue/Prologue)
+* [Trailers](https://astrea49.github.io/DH-Season-7-Archive/Trailers/Trailers)
+* [Film Studio](https://astrea49.github.io/DH-Season-7-Archive/FilmStudio/FilmStudio)
+* [School Set](https://astrea49.github.io/DH-Season-7-Archive/SchoolSet/SchoolSet)
+* [Lake Set](https://astrea49.github.io/DH-Season-7-Archive/LakeSet/LakeSet)
+* [Carnival Set](https://astrea49.github.io/DH-Season-7-Archive/CarnivalSet/CarnivalSet)
+* [Wild West](https://astrea49.github.io/DH-Season-7-Archive/WildWest/WildWest)
+* [Temple Ruins](https://astrea49.github.io/DH-Season-7-Archive/TempleRuins/TempleRuins)
+* [Labyrinth](https://astrea49.github.io/DH-Season-7-Archive/Labyrinth/Labyrinth)
+* [Simulations](https://astrea49.github.io/DH-Season-7-Archive/Simulations/Simulations)
+* [Prologue - Hope's Peak](https://astrea49.github.io/DH-Season-7-Archive/Prologue/Prologue)
